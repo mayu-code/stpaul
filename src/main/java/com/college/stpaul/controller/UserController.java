@@ -17,7 +17,7 @@ import com.college.stpaul.services.serviceImpl.UserServiceImpl;
 
 @RestController
 @RequestMapping("/manager")
-@CrossOrigin("")
+@CrossOrigin(origins = {"http://localhost:5173/","http://localhost:5174/"})
 public class UserController {
     
     @Autowired
@@ -27,7 +27,6 @@ public class UserController {
     public ResponseEntity<DataResponse> getProfile(@RequestHeader("Authorization") String jwt){
         DataResponse response = new DataResponse();
         User user = this.userServiceImpl.getUserByJWT(jwt);
-        System.out.println(user.toString());
         try{
             response.setData(user);
             response.setHttpStatus(HttpStatus.OK);
