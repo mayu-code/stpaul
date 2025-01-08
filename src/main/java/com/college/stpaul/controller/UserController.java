@@ -16,7 +16,7 @@ import com.college.stpaul.response.DataResponse;
 import com.college.stpaul.services.serviceImpl.UserServiceImpl;
 
 @RestController
-@RequestMapping("/manager")
+@RequestMapping("/adminuser")
 @CrossOrigin(origins = {"http://localhost:5173/","http://localhost:5174/"})
 public class UserController {
     

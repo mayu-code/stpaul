@@ -24,6 +24,7 @@ import com.college.stpaul.JwtSecurity.JwtProvider;
 import com.college.stpaul.entities.User;
 import com.college.stpaul.request.LoginRequest;
 import com.college.stpaul.response.DataResponse;
+import com.college.stpaul.response.LoginResponse;
 import com.college.stpaul.response.SuccessResponse;
 import com.college.stpaul.services.serviceImpl.UserServiceImpl;
 
@@ -68,8 +69,8 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<DataResponse> loginUser(@RequestBody LoginRequest request){
-        DataResponse response = new DataResponse();
+    public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest request){
+        LoginResponse response = new LoginResponse();
         User user = this.userServiceImpl.getUserByEmail(request.getEmail());
 
         if(user==null){
@@ -96,7 +97,7 @@ public class AuthController {
             this.userServiceImpl.addUser(user);
             response.setHttpStatus(HttpStatus.OK);
             response.setHttpStatusCode(200);
-            response.setData(token);
+            response.setToken(token);
             response.setMessage("login successful ! ");
             return ResponseEntity.of(Optional.of(response));
         }catch(Exception e){
