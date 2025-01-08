@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.college.stpaul.constants.Role;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,11 +29,11 @@ public class User implements UserDetails{
     private String password;
     private String contact;
     private String loginDate;
-    private Role role;
+    private Role role=Role.MANAGER;
     private String registrationDate;
 
-    @Lob
-    private byte[] image;
+    @Column(columnDefinition = "LONGTEXT")
+    private String image;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

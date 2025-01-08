@@ -30,8 +30,11 @@ public class Student {
     private String localAddress;
     private String permanentAddress;
     private LocalDate DOB;
-    private String adharNO;
+    private String adharNo;
     private String bloodGroup;
+
+    @Column(columnDefinition = "LONGTEXT")
+    private String image;
 
 
     @OneToOne

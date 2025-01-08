@@ -17,7 +17,6 @@ public class LastCollege {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
-    private String passedExam;
     private String collegeName;
     private String uDiseNO;
     private String lastStudentId;
@@ -26,6 +25,7 @@ public class LastCollege {
     private String examMonth;
     private int marksObtained;
     private Result result;
+    private boolean isAtkt;
 
 
     @OneToOne

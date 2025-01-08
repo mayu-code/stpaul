@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.college.stpaul.entities.AdmissionForm;
+import com.college.stpaul.entities.BankDetails;
+import com.college.stpaul.entities.GuardianInfo;
+import com.college.stpaul.entities.LastCollege;
+import com.college.stpaul.entities.Student;
 import com.college.stpaul.entities.User;
 import com.college.stpaul.response.SuccessResponse;
 import com.college.stpaul.services.serviceImpl.AdmissionFormImpl;
@@ -33,13 +37,17 @@ public class AdmissionController {
 
     @PostMapping("/newAdmissionForm")
     public ResponseEntity<SuccessResponse> newAdmission(@RequestHeader("Authorization") String jwt,
-                                                        @RequestBody AdmissionForm admissionForm){
+                                                        @RequestBody AdmissionForm admissionForm,
+                                                        @RequestBody Student student,
+                                                        @RequestBody BankDetails bankDetails,
+                                                        @RequestBody LastCollege lastCollege,
+                                                        @RequestBody GuardianInfo guardianInfo){
         SuccessResponse response = new SuccessResponse();
         User user = this.userServiceImpl.getUserByJWT(jwt);
         
         try{
             admissionForm.setUser(user);
-            this.admissionFormImpl.addAdmissionForm(admissionForm);
+            admissionForm = this.admissionFormImpl.addAdmissionForm(admissionForm);
             response.setHttpStatus(HttpStatus.OK);
             response.setHttpStatusCode(200);
             response.setMessage("Admission Form submit successfully !");
