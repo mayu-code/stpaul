@@ -27,6 +27,7 @@ public class UserController {
     public ResponseEntity<DataResponse> getProfile(@RequestHeader("Authorization") String jwt){
         DataResponse response = new DataResponse();
         User user = this.userServiceImpl.getUserByJWT(jwt);
+        System.out.println(user.toString());
         try{
             response.setData(user);
             response.setHttpStatus(HttpStatus.OK);

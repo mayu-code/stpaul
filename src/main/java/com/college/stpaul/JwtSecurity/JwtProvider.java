@@ -19,6 +19,7 @@ public class JwtProvider {
                     .setIssuer("ok").setIssuedAt(new Date())
                     .setExpiration(new Date(new Date().getTime()+86400000))
                     .claim("email",auth.getName())
+                    .claim("role", auth.getAuthorities().toArray()[0].toString())
                     .signWith(key)
                     .compact();
 
@@ -33,5 +34,15 @@ public class JwtProvider {
 
         String email = String.valueOf(claims.get("email"));
         return email;
+    }
+
+    public static String getRoleFromToken(String jwt) {
+        jwt = jwt.substring(7); // Removing "Bearer " prefix
+        Claims claims = Jwts.parser()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(jwt)
+                .getBody();
+        return claims.get("role").toString(); // Extract role from token
     }
 }

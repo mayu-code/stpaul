@@ -28,7 +28,7 @@ public class User implements UserDetails{
     private String password;
     private String contact;
     private String loginDate;
-    private Role role=Role.MANAGER;
+    private String role;
     private String registrationDate;
 
     @Lob
@@ -36,7 +36,7 @@ public class User implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_"+this.role.toString()));
+        return List.of(new SimpleGrantedAuthority("ROLE_"+this.role));
     }
 
     @Override
