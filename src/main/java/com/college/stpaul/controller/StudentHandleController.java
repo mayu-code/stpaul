@@ -38,7 +38,7 @@ public class StudentHandleController {
         System.out.println(query);
         try{
 
-            response.setData(this.studentServiceImpl.getStudentByField(query,null,currentClass,session));
+            response.setData(this.studentServiceImpl.getStudentByField(query,result,currentClass,session));
             // if(result.isEmpty()){
             //     response.setData(this.studentServiceImpl.getStudentByField(null,null,null,null));
             // }
