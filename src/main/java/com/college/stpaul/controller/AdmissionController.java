@@ -2,6 +2,7 @@ package com.college.stpaul.controller;
 
 import java.util.Optional;
 
+import org.aspectj.internal.lang.annotation.ajcDeclarePrecedence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,6 +66,8 @@ public class AdmissionController {
             admissionForm.setUser(user);
             admissionForm = this.admissionFormImpl.addAdmissionForm(admissionForm);
             student.setAdmissionForm(admissionForm);
+            student.setCurrentClass(admissionForm.getStdClass());
+            student.setSession(admissionForm.getSession());
             student = this.studentServiceImpl.addStudent(student);
             bankDetails.setStudent(student);
             this.bankDetailsServiceImpl.addBankDetails(bankDetails);

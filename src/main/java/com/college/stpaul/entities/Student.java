@@ -2,6 +2,8 @@ package com.college.stpaul.entities;
 
 import java.time.LocalDate;
 
+import com.college.stpaul.constants.Result;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +34,10 @@ public class Student {
     private LocalDate DOB;
     private String adharNo;
     private String bloodGroup;
+    private String currentClass;
+    private Result result=Result.ON_GOING;
+    private int rollNo;
+    private String session;
 
     @Column(columnDefinition = "LONGTEXT")
     private String image;

@@ -42,4 +42,5 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(response);
         }
     }
+    
 }

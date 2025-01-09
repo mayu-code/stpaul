@@ -1,5 +1,5 @@
 package com.college.stpaul.constants;
 
 public enum Result {
-    PASS,FAIL,ATKT
+    PASS,FAIL,ATKT,AWAITED,ON_GOING,NULL
 }
