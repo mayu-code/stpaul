@@ -1,5 +1,6 @@
 package com.college.stpaul.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.college.stpaul.Helper.DateTimeFormat;
 import com.college.stpaul.entities.AdmissionForm;
 import com.college.stpaul.entities.BankDetails;
 import com.college.stpaul.entities.BioFocalSubject;
@@ -88,7 +90,11 @@ public class AdmissionController {
     
             try{
                 admissionForm.setUser(user);
+                admissionForm.setAdmissionDate(DateTimeFormat.format(LocalDateTime.now()));
                 admissionForm = this.admissionFormImpl.addAdmissionForm(admissionForm);
+
+                student.setSession(admissionForm.getSession());
+                student.setCurrentClass(admissionForm.getStdClass());
                 student.setAdmissionForm(admissionForm);
                 student = this.studentServiceImpl.addStudent(student);
     
@@ -101,7 +107,7 @@ public class AdmissionController {
                 guardianInfo.setStudent(student);
                 this.guardianInfoServiceImpl.addGuardianInfo(guardianInfo); 
                 
-              
+        
                 if(documents!=null){
                     documents.setStudent(student);
                     this.documentsServiceImpl.addDocuments(documents);

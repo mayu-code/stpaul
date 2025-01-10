@@ -27,13 +27,13 @@ public class Student {
     private String firstName;
     private String fatherName;
     private String motherName;
-    private String sirName;
+    private String surName;
     private String email;
     private String phoneNo;
     private String gender;
     private String caste;
     private String category;
-    private String scholershipCategory;
+    private String scholarshipCategory;
     private String localAddress;
     private String permanentAddress;
     private String DOB;
