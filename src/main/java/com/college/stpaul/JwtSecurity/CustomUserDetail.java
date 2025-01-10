@@ -23,8 +23,6 @@ public class CustomUserDetail implements UserDetailsService {
         if(user==null){
             throw new UsernameNotFoundException("Invalid Credentials");
         }
-        
-        System.out.println(user.getRole());
 
         return org.springframework.security.core.userdetails.User.builder().username(user.getEmail()).password(user.getPassword())
                                             .roles(user.getRole().toString()).authorities(user.getAuthorities()).build();

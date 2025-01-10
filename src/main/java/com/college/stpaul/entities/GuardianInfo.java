@@ -1,5 +1,7 @@
 package com.college.stpaul.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +25,7 @@ public class GuardianInfo {
     private String guardianIncome;
 
     @OneToOne
-    @JoinColumn(name = "student_id",nullable = false)
+    @JoinColumn(name = "student_id")
+    @JsonIgnore
     private Student student;
 }

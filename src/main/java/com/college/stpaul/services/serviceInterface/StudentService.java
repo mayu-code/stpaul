@@ -8,4 +8,5 @@ import com.college.stpaul.entities.Student;
 public interface StudentService {
     Student addStudent(Student student);
     List<Student> getStudentByField(String query,Result result,String currentClass,String session);
+    Student getStudentById(long id);
 }

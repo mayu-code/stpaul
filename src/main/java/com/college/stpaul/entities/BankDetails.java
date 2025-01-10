@@ -1,5 +1,7 @@
 package com.college.stpaul.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +23,7 @@ public class BankDetails {
     private String IFSCCode;
 
     @OneToOne
-    @JoinColumn(name="student_id" , nullable=false)
+    @JoinColumn(name = "student_id", nullable = false)
+    @JsonIgnore
     private Student student;
 }

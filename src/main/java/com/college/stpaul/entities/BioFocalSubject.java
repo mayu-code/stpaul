@@ -2,7 +2,6 @@ package com.college.stpaul.entities;
 
 import java.util.List;
 
-import com.college.stpaul.constants.PaymentType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -16,26 +15,19 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 
+
 @Data
 @Entity
-public class PaymentDetails {
+public class BioFocalSubject {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
-    private int installments;
-    private int installmentGap;
-    private double totalFees;
-    private double paidAmount;
-    private PaymentType paymentType;
-    private double balanceAmount;
-    private double installmentAmount;
-    private String dueDate;
-
-
-    @OneToMany(mappedBy = "paymentDetails",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private List<Receipt> receipts;
-
+    private String stream;
+    
+    @OneToMany(mappedBy = "bioFocalSubject",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<Subject> subject;
+    
     @OneToOne
     @JoinColumn(name = "student_id")
     @JsonIgnore

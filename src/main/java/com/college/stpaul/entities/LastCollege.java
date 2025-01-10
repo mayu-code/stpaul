@@ -1,6 +1,7 @@
 package com.college.stpaul.entities;
 
 import com.college.stpaul.constants.Result;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +30,8 @@ public class LastCollege {
 
 
     @OneToOne
-    @JoinColumn(name = "student_id" , nullable = false)
+    @JoinColumn(name = "student_id")
+    @JsonIgnore
     private Student student;
 
 }   

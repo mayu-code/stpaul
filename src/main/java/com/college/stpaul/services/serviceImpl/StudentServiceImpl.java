@@ -69,5 +69,10 @@ public class StudentServiceImpl implements StudentService {
         //     return this.studentRepo.searchStudentByNameAndEmailAndResultAndClassAndSession(query, result, currentClass, session, pageable);
         // }
     }
+
+    @Override
+    public Student getStudentById(long id) {
+        return this.studentRepo.findById(id).get();
+    }
     
 }
