@@ -27,7 +27,7 @@ public class Student {
     private String firstName;
     private String fatherName;
     private String motherName;
-    private String surName;
+    private String surname;
     private String email;
     private String phoneNo;
     private String gender;
@@ -36,7 +36,7 @@ public class Student {
     private String scholarshipCategory;
     private String localAddress;
     private String permanentAddress;
-    private String DOB;
+    private String dob;
     private String adharNo;
     private String bloodGroup;
     private String currentClass;

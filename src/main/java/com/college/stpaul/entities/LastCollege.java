@@ -19,7 +19,7 @@ public class LastCollege {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
     private String collegeName;
-    private String uDiseNo;
+    private String udiseNo;
     private String lastStudentId;
     private String examination;
     private String rollNo;

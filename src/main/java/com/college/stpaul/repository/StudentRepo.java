@@ -15,7 +15,7 @@ public interface StudentRepo extends JpaRepository<Student,Long>{
     @Query("""
     SELECT s 
     FROM Student s 
-    WHERE (:query IS NULL OR (s.firstName LIKE %:query% OR s.surName LIKE %:query% OR s.email LIKE %:query%))
+    WHERE (:query IS NULL OR (s.firstName LIKE %:query% OR s.surname LIKE %:query% OR s.email LIKE %:query%))
       AND (:result IS NULL OR s.result = :result)
       AND (:currentClass IS NULL OR s.currentClass = :currentClass)
       AND (:session IS NULL OR session=:session)
