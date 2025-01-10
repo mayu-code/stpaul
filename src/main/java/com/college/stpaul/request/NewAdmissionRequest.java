@@ -1,7 +1,5 @@
 package com.college.stpaul.request;
 
-import java.util.List;
-
 import com.college.stpaul.entities.AdmissionForm;
 import com.college.stpaul.entities.BankDetails;
 import com.college.stpaul.entities.BioFocalSubject;

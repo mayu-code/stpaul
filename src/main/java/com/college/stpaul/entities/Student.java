@@ -41,7 +41,7 @@ public class Student {
     private String bloodGroup;
     private String currentClass;
     private Result result=Result.ON_GOING;
-    private int rollNo;
+    private String rollNo;
     private String session;
 
     @Column(columnDefinition = "LONGTEXT")
