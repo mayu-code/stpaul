@@ -22,7 +22,7 @@ public class LastCollege {
     private String uDiseNO;
     private String lastStudentId;
     private String examination;
-    private int rollNo;
+    private String rollNo;
     private String examMonth;
     private int marksObtained;
     private Result result;

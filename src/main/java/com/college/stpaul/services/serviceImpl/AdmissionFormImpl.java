@@ -20,7 +20,7 @@ public class AdmissionFormImpl implements AdmissionFormService {
 
     @Override
     public AdmissionForm getAdmissionFormByFromNo(long formNo) {
-        return this.admissionFormRepo.findByFormNO(formNo);
+        return this.admissionFormRepo.findByFormNo(formNo);
     }
    
 }

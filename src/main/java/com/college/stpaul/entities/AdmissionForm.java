@@ -17,7 +17,7 @@ public class AdmissionForm {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private long formNO;
+    private long formNo;
     private String stdClass;
     private String section;
     private String session;

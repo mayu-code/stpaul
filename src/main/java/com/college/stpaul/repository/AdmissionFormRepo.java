@@ -7,5 +7,5 @@ import java.util.List;
 
 
 public interface AdmissionFormRepo extends JpaRepository<AdmissionForm,Long> {
-    AdmissionForm  findByFormNO(long formNO);
+    AdmissionForm  findByFormNo(long formNo);
 }
