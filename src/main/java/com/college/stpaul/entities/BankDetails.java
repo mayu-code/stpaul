@@ -20,7 +20,7 @@ public class BankDetails {
     private String accountNo;
     private String bankName;
     private String bankBranch;
-    private String IFSCCode;
+    private String ifscCode;
 
     @OneToOne
     @JoinColumn(name = "student_id", nullable = false)

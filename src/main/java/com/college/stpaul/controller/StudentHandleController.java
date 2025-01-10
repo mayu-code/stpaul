@@ -74,7 +74,7 @@ public class StudentHandleController {
                                 
     }
 
-    @PostMapping("/addPayment")
+    @PostMapping("/addPaymentMethod")
     public ResponseEntity<SuccessResponse> PaymentDetails(@RequestHeader("Authorization")String jwt,
                                             @RequestBody PaymentRequest paymentRequest){
 
