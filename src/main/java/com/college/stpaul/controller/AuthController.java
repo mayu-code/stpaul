@@ -1,7 +1,6 @@
 package com.college.stpaul.controller;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ import com.college.stpaul.JwtSecurity.CustomUserDetail;
 import com.college.stpaul.JwtSecurity.JwtProvider;
 import com.college.stpaul.entities.User;
 import com.college.stpaul.request.LoginRequest;
-import com.college.stpaul.response.DataResponse;
 import com.college.stpaul.response.LoginResponse;
 import com.college.stpaul.response.SuccessResponse;
 import com.college.stpaul.services.serviceImpl.UserServiceImpl;

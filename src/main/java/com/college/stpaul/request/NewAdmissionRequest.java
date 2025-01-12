@@ -1,5 +1,7 @@
 package com.college.stpaul.request;
 
+import java.util.List;
+
 import com.college.stpaul.entities.AdmissionForm;
 import com.college.stpaul.entities.BankDetails;
 import com.college.stpaul.entities.BioFocalSubject;
@@ -21,4 +23,5 @@ public class NewAdmissionRequest {
     private Subjects subjects;
     private BioFocalSubject bioFocalSubject;
     private Documents sports;
+    private List<Documents> documents;
 }

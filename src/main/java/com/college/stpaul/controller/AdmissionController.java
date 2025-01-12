@@ -86,7 +86,8 @@ public class AdmissionController {
             GuardianInfo guardianInfo = admissionRequest.getGuardianInfo();
             Subjects subjects = admissionRequest.getSubjects();
             BioFocalSubject bioFocalSubject = admissionRequest.getBioFocalSubject();
-            Documents documents = admissionRequest.getSports();
+            Documents sports = admissionRequest.getSports();
+            List<Documents> documents = admissionRequest.getDocuments(); 
     
             try{
                 admissionForm.setUser(user);
@@ -108,9 +109,16 @@ public class AdmissionController {
                 this.guardianInfoServiceImpl.addGuardianInfo(guardianInfo); 
                 
         
+                if(sports!=null){
+                    sports.setStudent(student);
+                    this.documentsServiceImpl.addDocuments(sports);
+                }
+
                 if(documents!=null){
-                    documents.setStudent(student);
-                    this.documentsServiceImpl.addDocuments(documents);
+                    for(Documents d:documents){
+                        d.setStudent(student);
+                        this.documentsServiceImpl.addDocuments(d);
+                    }
                 }
                 
                 if(subjects!=null){
