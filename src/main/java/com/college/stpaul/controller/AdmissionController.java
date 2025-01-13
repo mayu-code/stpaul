@@ -43,7 +43,6 @@ import com.college.stpaul.services.serviceImpl.UserServiceImpl;
 @CrossOrigin(origins = {"http://localhost:5173/","http://localhost:5174/"})
 public class AdmissionController {
     
-    
         @Autowired
         private AdmissionFormImpl admissionFormImpl;
     
@@ -130,7 +129,6 @@ public class AdmissionController {
                         s.setSubjects(subjects);
                         this.subjectServiceImpl.addSubject(s);
                     }
-
                 }
                
             if(bioFocalSubject!=null){

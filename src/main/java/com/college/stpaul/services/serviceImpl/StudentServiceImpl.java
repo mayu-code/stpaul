@@ -33,5 +33,11 @@ public class StudentServiceImpl implements StudentService {
     public Student getStudentById(long id) {
         return this.studentRepo.findById(id).get();
     }
+
+    @Override
+    public List<Student> getAllFailedStudent() {
+        Result result = Result.FAIL;
+        return this.studentRepo.getFailedStudents(result);
+    }
     
 }

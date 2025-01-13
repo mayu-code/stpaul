@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -106,6 +107,42 @@ public class StudentHandleController {
             response.setHttpStatusCode(200);
             response.setMessage("payment Successful !");
             return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setHttpStatusCode(500);
+            response.setMessage("something went wrong !");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("getStudentById/{id}")
+    public ResponseEntity<DataResponse> getStudentById(@PathVariable("id") long id){
+        DataResponse response = new DataResponse();
+        try{
+            response.setData(this.studentServiceImpl.getStudentById(id));
+            response.setHttpStatus(HttpStatus.OK);
+            response.setHttpStatusCode(200);
+            response.setMessage("get Student successfully !");
+            return ResponseEntity.of(Optional.of(response));
+
+        }catch(Exception e){
+            response.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setHttpStatusCode(500);
+            response.setMessage("something went wrong !");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("getAllFailStudents")
+    public ResponseEntity<DataResponse> getAllFailStudent(){
+        DataResponse response = new DataResponse();
+        try{
+            response.setData(this.studentServiceImpl.getAllFailedStudent());
+            response.setHttpStatus(HttpStatus.OK);
+            response.setHttpStatusCode(200);
+            response.setMessage("get failed Students successfully !");
+            return ResponseEntity.of(Optional.of(response));
+
         }catch(Exception e){
             response.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             response.setHttpStatusCode(500);
