@@ -26,7 +26,7 @@ import com.college.stpaul.entities.Subject;
 import com.college.stpaul.entities.Subjects;
 import com.college.stpaul.entities.User;
 import com.college.stpaul.request.NewAdmissionRequest;
-import com.college.stpaul.response.SuccessResponse;
+import com.college.stpaul.response.AdminssionResponse;
 import com.college.stpaul.services.serviceImpl.AdmissionFormImpl;
 import com.college.stpaul.services.serviceImpl.BankDetailsServiceImpl;
 import com.college.stpaul.services.serviceImpl.BioFocalSubjectServiceImpl;
@@ -75,8 +75,8 @@ public class AdmissionController {
     
     
         @PostMapping("/newAdmissionForm")
-        public ResponseEntity<SuccessResponse> newAdmission(@RequestHeader("Authorization") String jwt,@RequestBody NewAdmissionRequest admissionRequest){
-            SuccessResponse response = new SuccessResponse();
+        public ResponseEntity<AdminssionResponse> newAdmission(@RequestHeader("Authorization") String jwt,@RequestBody NewAdmissionRequest admissionRequest){
+            AdminssionResponse response = new AdminssionResponse();
             User user = this.userServiceImpl.getUserByJWT(jwt);
             AdmissionForm admissionForm= admissionRequest.getAdmissionForm();
             Student student = admissionRequest.getStudent() ;
@@ -141,7 +141,7 @@ public class AdmissionController {
                     this.subjectServiceImpl.addSubject(s);
                 }
             }
-            
+            response.setId(student.getId());
             response.setHttpStatus(HttpStatus.OK);
             response.setHttpStatusCode(200);
             response.setMessage("Admission Form submit successfully !");

@@ -35,7 +35,6 @@ public class UserController {
             return ResponseEntity.of(Optional.of(response));
 
         }catch(Exception e){
-
             response.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             response.setHttpStatusCode(500);;
             response.setMessage("something went wrong !");
