@@ -47,19 +47,20 @@ public class StudentHandleController {
 
 
 
-    @GetMapping("/getStudent")
+    @GetMapping("/getStudent/{pageNo}")
     public ResponseEntity<DataResponse> getStudents(@RequestHeader("Authorization")String jwt,
                                 @RequestParam(required = false) String query,
                                 @RequestParam(required = false) Result result,
                                 @RequestParam(required = false) String currentClass,
-                                @RequestParam(required = false) String session
+                                @RequestParam(required = false) String session,
+                                int pageNo
                                 ){
         
         DataResponse response = new DataResponse();
         System.out.println(query);
         try{
 
-            response.setData(this.studentServiceImpl.getStudentByField(query,result,currentClass,session));
+            response.setData(this.studentServiceImpl.getStudentByField(query,result,currentClass,session,pageNo));
             response.setHttpStatus(HttpStatus.OK);
             response.setHttpStatusCode(200);
             response.setMessage("get Students Successfully !");
