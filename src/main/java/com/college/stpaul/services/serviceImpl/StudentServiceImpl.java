@@ -24,8 +24,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getStudentByField(String query, Result result, String currentClass, String session) {
-        Pageable pageable = PageRequest.of(0, 10);
+    public List<Student> getStudentByField(String query, Result result, String currentClass, String session,int pageNo) {
+        Pageable pageable = PageRequest.of(pageNo, 10);
         return this.studentRepo.searchStudents(query,result,currentClass,session,pageable);  
     }
 
