@@ -53,7 +53,7 @@ public class StudentHandleController {
                                 @RequestParam(required = false) Result result,
                                 @RequestParam(required = false) String currentClass,
                                 @RequestParam(required = false) String session,
-                                int pageNo
+                                @PathVariable("pageNo")int pageNo
                                 ){
         
         DataResponse response = new DataResponse();
