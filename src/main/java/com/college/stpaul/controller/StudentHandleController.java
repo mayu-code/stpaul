@@ -24,6 +24,7 @@ import com.college.stpaul.entities.Receipt;
 import com.college.stpaul.entities.Student;
 import com.college.stpaul.request.PaymentRequest;
 import com.college.stpaul.response.DataResponse;
+import com.college.stpaul.response.PaginationResponse;
 import com.college.stpaul.response.SuccessResponse;
 import com.college.stpaul.services.serviceImpl.PaymentDetailServiceImpl;
 import com.college.stpaul.services.serviceImpl.ReceiptServiceImpl;
@@ -141,6 +142,25 @@ public class StudentHandleController {
             response.setHttpStatus(HttpStatus.OK);
             response.setHttpStatusCode(200);
             response.setMessage("get failed Students successfully !");
+            return ResponseEntity.of(Optional.of(response));
+
+        }catch(Exception e){
+            response.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setHttpStatusCode(500);
+            response.setMessage("something went wrong !");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("getPaginationData")
+    public ResponseEntity<PaginationResponse> paginationResponse(){
+        PaginationResponse response = new PaginationResponse();
+        try{
+            response.setStudents(this.studentServiceImpl.paginationData());
+            response.setPages((int)response.getStudents()/10);
+            response.setHttpStatus(HttpStatus.OK);
+            response.setHttpStatusCode(200);
+            response.setMessage("get pagination data successfully !");
             return ResponseEntity.of(Optional.of(response));
 
         }catch(Exception e){

@@ -39,5 +39,10 @@ public class StudentServiceImpl implements StudentService {
         Result result = Result.FAIL;
         return this.studentRepo.getFailedStudents(result);
     }
+
+    @Override
+    public long paginationData() {
+        return this.studentRepo.countAllStudents();
+    }
     
 }

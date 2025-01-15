@@ -31,5 +31,7 @@ public interface StudentRepo extends JpaRepository<Student,Long>{
     @Query("SELECT s FROM Student s WHERE s.result=:result")
     List<Student> getFailedStudents(Result result);
 
+    @Query("SELECT COUNT(s) FROM Student s")
+    long countAllStudents();
    
 }

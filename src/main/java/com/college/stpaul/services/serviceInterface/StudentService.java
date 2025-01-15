@@ -10,4 +10,5 @@ public interface StudentService {
     List<Student> getStudentByField(String query,Result result,String currentClass,String session);
     Student getStudentById(long id);
     List<Student> getAllFailedStudent();
+    long paginationData();
 }

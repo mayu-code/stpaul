@@ -18,7 +18,7 @@ public class Receipt {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "custom_seq")
-    @SequenceGenerator(name = "custom_seq", sequenceName = "custom_sequence", initialValue = 100000, allocationSize = 1)
+    @SequenceGenerator(name = "custom_seq", sequenceName = "custom_sequence", initialValue = 100, allocationSize = 1)
     private long receiptNumber;
     private double AmountPaid;
     private String transactionId;
