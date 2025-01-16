@@ -1,7 +1,15 @@
 package com.college.stpaul.services.serviceImpl;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.List;
 
+import org.apache.poi.sl.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +25,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentRepo studentRepo;
+    public Object outputStream;
 
     @Override
     public Student addStudent(Student student) {
@@ -44,5 +53,6 @@ public class StudentServiceImpl implements StudentService {
     public long paginationData() {
         return this.studentRepo.countAllStudents();
     }
+
     
 }

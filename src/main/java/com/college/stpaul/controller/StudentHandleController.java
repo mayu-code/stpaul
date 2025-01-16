@@ -1,10 +1,16 @@
 package com.college.stpaul.controller;
 
 
+import java.io.IOException;
+
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.college.stpaul.Helper.DateTimeFormat;
+import com.college.stpaul.Helper.ExcelExporter;
 import com.college.stpaul.constants.Result;
 import com.college.stpaul.entities.PaymentDetails;
 import com.college.stpaul.entities.Receipt;
@@ -44,6 +51,9 @@ public class StudentHandleController {
 
     @Autowired
     private ReceiptServiceImpl receiptServiceImpl;
+
+    @Autowired
+    private ExcelExporter excelExporter;
 
 
 
@@ -170,6 +180,19 @@ public class StudentHandleController {
             response.setMessage("something went wrong !");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
+    }
+
+    @GetMapping("/students/excel")
+    public ResponseEntity<ByteArrayResource> downloadExcel() throws IOException {
+        List<Student> students = this.studentServiceImpl.getStudentByField(null, null, null, null, 0);
+        byte[] excelData = excelExporter.exportToExcel(students);
+
+        ByteArrayResource resource = new ByteArrayResource(excelData);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=students.xlsx")
+                .header(HttpHeaders.CONTENT_TYPE, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                .body(resource);
     }
     
 }
