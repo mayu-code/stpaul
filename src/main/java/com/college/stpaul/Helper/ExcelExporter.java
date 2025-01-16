@@ -156,7 +156,6 @@ import com.college.stpaul.entities.BankDetails;
 import com.college.stpaul.entities.GuardianInfo;
 import com.college.stpaul.entities.LastCollege;
 import com.college.stpaul.entities.PaymentDetails;
-import com.college.stpaul.entities.Receipt;
 import com.college.stpaul.entities.Student;
 import com.college.stpaul.entities.Subject;
 import com.college.stpaul.entities.Subjects;
@@ -246,23 +245,11 @@ public class ExcelExporter {
             row.createCell(32).setCellValue(paymentDetails != null ? paymentDetails.getInstallmentAmount() : 0.0);
             row.createCell(33).setCellValue(paymentDetails != null ? paymentDetails.getDueDate() : "N/A");
 
-            // Receipts
-            List<Receipt> receipts = paymentDetails != null ? paymentDetails.getReceipts() : null;
-            StringBuilder receiptDetails = new StringBuilder();
-            if (receipts != null) {
-                for (Receipt receipt : receipts) {
-                    receiptDetails.append("Receipt #: ").append(receipt.getReceiptNumber())
-                            .append(", Amount: ").append(receipt.getAmountPaid())
-                            .append(", Transaction ID: ").append(receipt.getTransactionId())
-                            .append(", Date: ").append(receipt.getPayDate()).append("\n");
-                }
-            }
-            row.createCell(34).setCellValue(receiptDetails.toString());
 
             // Subjects Info
             Subjects subjects = student.getSubjects();
-            row.createCell(35).setCellValue(subjects != null ? subjects.getStream() : "N/A");
-            row.createCell(36).setCellValue(subjects != null ? subjects.getSubStream() : "N/A");
+            row.createCell(34).setCellValue(subjects != null ? subjects.getStream() : "N/A");
+            row.createCell(35).setCellValue(subjects != null ? subjects.getSubStream() : "N/A");
 
             StringBuilder subjectsInfo = new StringBuilder();
             List<Subject> subjectList = subjects != null ? subjects.getSubject() : null;
@@ -271,7 +258,7 @@ public class ExcelExporter {
                     subjectsInfo.append(subject.getName()).append(" (").append(subject.getMedium()).append(")\n");
                 }
             }
-            row.createCell(37).setCellValue(subjectsInfo.toString());
+            row.createCell(36).setCellValue(subjectsInfo.toString());
         }
 
         // Auto-size columns
@@ -322,7 +309,7 @@ public class ExcelExporter {
                     subStreamCell.setCellValue(subStream);
                 }
 
-                
+
                 // Fill "Subject Name" and "Medium"
                 row.createCell(2).setCellValue(subject.getName());
                 row.createCell(3).setCellValue(subject.getMedium());
