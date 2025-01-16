@@ -245,7 +245,6 @@ public class ExcelExporter {
             row.createCell(32).setCellValue(paymentDetails != null ? paymentDetails.getInstallmentAmount() : 0.0);
             row.createCell(33).setCellValue(paymentDetails != null ? paymentDetails.getDueDate() : "N/A");
 
-
             // Subjects Info
             Subjects subjects = student.getSubjects();
             row.createCell(34).setCellValue(subjects != null ? subjects.getStream() : "N/A");
@@ -254,7 +253,8 @@ public class ExcelExporter {
             StringBuilder subjectsInfo = new StringBuilder();
             List<Subject> subjectList = subjects != null ? subjects.getSubject() : null;
             if (subjectList != null) {
-                for (Subject subject : subjectList) {
+                for (int i = 0; i < subjectList.size(); i++) {
+                    Subject subject = subjectList.get(i);
                     subjectsInfo.append(subject.getName()).append(" (").append(subject.getMedium()).append(")\n");
                 }
             }
@@ -309,7 +309,6 @@ public class ExcelExporter {
                     subStreamCell.setCellValue(subStream);
                 }
 
-
                 // Fill "Subject Name" and "Medium"
                 row.createCell(2).setCellValue(subject.getName());
                 row.createCell(3).setCellValue(subject.getMedium());
@@ -329,4 +328,3 @@ public class ExcelExporter {
         return outputStream.toByteArray();
     }
 }
-
