@@ -156,6 +156,7 @@ import com.college.stpaul.entities.BankDetails;
 import com.college.stpaul.entities.GuardianInfo;
 import com.college.stpaul.entities.LastCollege;
 import com.college.stpaul.entities.PaymentDetails;
+import com.college.stpaul.entities.Receipt;
 import com.college.stpaul.entities.Student;
 import com.college.stpaul.entities.Subject;
 import com.college.stpaul.entities.Subjects;
@@ -181,7 +182,7 @@ public class ExcelExporter {
             "Bank Name", "Bank Account No", "Bank Branch", "IFSC Code",
             "Last College Name", "Last College Roll No", "Examination", "Marks Obtained", "ATKT",
             "Installments", "Installment Gap", "Total Fees", "Paid Amount", "Balance Amount", "Installment Amount",
-            "Due Date", "Receipts",
+            "Due Date",
             "Stream", "Substream", "Subjects"
         };
 
@@ -245,24 +246,17 @@ public class ExcelExporter {
             row.createCell(32).setCellValue(paymentDetails != null ? paymentDetails.getInstallmentAmount() : 0.0);
             row.createCell(33).setCellValue(paymentDetails != null ? paymentDetails.getDueDate() : "N/A");
 
+
             // Subjects Info
             Subjects subjects = student.getSubjects();
-            String stream = subjects != null ? subjects.getStream() : "N/A";
-            String subStream = subjects != null ? subjects.getSubStream() : "N/A";
-
-            // Set the Stream and Substream only once for all subjects under the same student
-            row.createCell(34).setCellValue(stream);
-            row.createCell(35).setCellValue(subStream);
+            row.createCell(34).setCellValue(subjects != null ? subjects.getStream() : "N/A");
+            row.createCell(35).setCellValue(subjects != null ? subjects.getSubStream() : "N/A");
 
             StringBuilder subjectsInfo = new StringBuilder();
             List<Subject> subjectList = subjects != null ? subjects.getSubject() : null;
             if (subjectList != null) {
-                for (int i = 0; i < subjectList.size(); i++) {
-                    Subject subject = subjectList.get(i);
-                    if (i > 0) {
-                        subjectsInfo.append("\n"); // New line for each subject
-                    }
-                    subjectsInfo.append(subject.getName()).append(" (").append(subject.getMedium()).append(")");
+                for (Subject subject : subjectList) {
+                    subjectsInfo.append(subject.getName()).append(" (").append(subject.getMedium()).append(")\n");
                 }
             }
             row.createCell(36).setCellValue(subjectsInfo.toString());
@@ -304,17 +298,18 @@ public class ExcelExporter {
                 Subject subject = subjectList.get(i);
                 Row row = sheet.createRow(rowIndex++);
 
-                // Merge cells for "Stream" and "SubStream" if this is the first occurrence
                 if (i == 0) {
+                    // Merge cells for "Stream"
                     sheet.addMergedRegion(new CellRangeAddress(rowIndex - 1, rowIndex + subjectList.size() - 2, 0, 0));
-                    sheet.addMergedRegion(new CellRangeAddress(rowIndex - 1, rowIndex + subjectList.size() - 2, 1, 1));
-
                     Cell streamCell = row.createCell(0);
                     streamCell.setCellValue(stream);
 
+                    // Merge cells for "SubStream"
+                    sheet.addMergedRegion(new CellRangeAddress(rowIndex - 1, rowIndex + subjectList.size() - 2, 1, 1));
                     Cell subStreamCell = row.createCell(1);
                     subStreamCell.setCellValue(subStream);
                 }
+
 
                 // Fill "Subject Name" and "Medium"
                 row.createCell(2).setCellValue(subject.getName());
@@ -335,3 +330,4 @@ public class ExcelExporter {
         return outputStream.toByteArray();
     }
 }
+
