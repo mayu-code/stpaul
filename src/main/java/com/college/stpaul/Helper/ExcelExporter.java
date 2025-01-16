@@ -322,6 +322,7 @@ public class ExcelExporter {
                     subStreamCell.setCellValue(subStream);
                 }
 
+                
                 // Fill "Subject Name" and "Medium"
                 row.createCell(2).setCellValue(subject.getName());
                 row.createCell(3).setCellValue(subject.getMedium());
