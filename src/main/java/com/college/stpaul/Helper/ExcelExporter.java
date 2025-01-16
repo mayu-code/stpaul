@@ -247,15 +247,22 @@ public class ExcelExporter {
 
             // Subjects Info
             Subjects subjects = student.getSubjects();
-            row.createCell(34).setCellValue(subjects != null ? subjects.getStream() : "N/A");
-            row.createCell(35).setCellValue(subjects != null ? subjects.getSubStream() : "N/A");
+            String stream = subjects != null ? subjects.getStream() : "N/A";
+            String subStream = subjects != null ? subjects.getSubStream() : "N/A";
+
+            // Set the Stream and Substream only once for all subjects under the same student
+            row.createCell(34).setCellValue(stream);
+            row.createCell(35).setCellValue(subStream);
 
             StringBuilder subjectsInfo = new StringBuilder();
             List<Subject> subjectList = subjects != null ? subjects.getSubject() : null;
             if (subjectList != null) {
                 for (int i = 0; i < subjectList.size(); i++) {
                     Subject subject = subjectList.get(i);
-                    subjectsInfo.append(subject.getName()).append(" (").append(subject.getMedium()).append(")\n");
+                    if (i > 0) {
+                        subjectsInfo.append("\n"); // New line for each subject
+                    }
+                    subjectsInfo.append(subject.getName()).append(" (").append(subject.getMedium()).append(")");
                 }
             }
             row.createCell(36).setCellValue(subjectsInfo.toString());
@@ -297,14 +304,14 @@ public class ExcelExporter {
                 Subject subject = subjectList.get(i);
                 Row row = sheet.createRow(rowIndex++);
 
+                // Merge cells for "Stream" and "SubStream" if this is the first occurrence
                 if (i == 0) {
-                    // Merge cells for "Stream"
                     sheet.addMergedRegion(new CellRangeAddress(rowIndex - 1, rowIndex + subjectList.size() - 2, 0, 0));
+                    sheet.addMergedRegion(new CellRangeAddress(rowIndex - 1, rowIndex + subjectList.size() - 2, 1, 1));
+
                     Cell streamCell = row.createCell(0);
                     streamCell.setCellValue(stream);
 
-                    // Merge cells for "SubStream"
-                    sheet.addMergedRegion(new CellRangeAddress(rowIndex - 1, rowIndex + subjectList.size() - 2, 1, 1));
                     Cell subStreamCell = row.createCell(1);
                     subStreamCell.setCellValue(subStream);
                 }
