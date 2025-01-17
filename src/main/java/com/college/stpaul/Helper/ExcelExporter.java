@@ -347,7 +347,13 @@ public class ExcelExporter {
             lastCollege.setResult(row.getCell(33) != null ? Result.valueOf(row.getCell(33).getStringCellValue().toUpperCase()) : null);
             lastCollege.setExamination(row.getCell(34) != null ? row.getCell(34).getStringCellValue() : null);
             lastCollege.setMarksObtained(row.getCell(35) != null ? (int) row.getCell(35).getNumericCellValue() : 0);
-            lastCollege.setAtkt(row.getCell(36) != null && row.getCell(36).getBooleanCellValue());
+            if(row.getCell(36) != null){
+                if(row.getCell(36).getStringCellValue().equalsIgnoreCase("no")){
+                    lastCollege.setAtkt(false);
+                }else if(row.getCell(36).getStringCellValue().equalsIgnoreCase("yes")){
+                    lastCollege.setAtkt(true);
+                }
+            }
             lastCollege.setStudent(student);
             this.lastCollegeServiceImpl.addLastCollege(lastCollege);
     
@@ -545,7 +551,7 @@ public class ExcelExporter {
         cell36.setCellValue(73);
     
         Cell cell37 = dataRow.createCell(36);
-        cell37.setCellValue(false);
+        cell37.setCellValue("No");
     
         Cell cell38 = dataRow.createCell(37);
         cell38.setCellValue(0);
