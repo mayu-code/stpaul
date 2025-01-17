@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-
+import org.apache.xmlbeans.impl.config.UserTypeImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -21,15 +21,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.college.stpaul.Helper.DateTimeFormat;
 import com.college.stpaul.Helper.ExcelExporter;
 import com.college.stpaul.constants.Result;
+import com.college.stpaul.entities.AdmissionForm;
 import com.college.stpaul.entities.PaymentDetails;
 import com.college.stpaul.entities.Receipt;
 import com.college.stpaul.entities.Student;
+import com.college.stpaul.entities.User;
 import com.college.stpaul.request.PaymentRequest;
 import com.college.stpaul.response.DataResponse;
 import com.college.stpaul.response.PaginationResponse;
@@ -37,6 +40,7 @@ import com.college.stpaul.response.SuccessResponse;
 import com.college.stpaul.services.serviceImpl.PaymentDetailServiceImpl;
 import com.college.stpaul.services.serviceImpl.ReceiptServiceImpl;
 import com.college.stpaul.services.serviceImpl.StudentServiceImpl;
+import com.college.stpaul.services.serviceImpl.UserServiceImpl;
 
 @RestController
 @RequestMapping("/adminuser")
@@ -46,6 +50,8 @@ public class StudentHandleController {
     @Autowired
     private StudentServiceImpl studentServiceImpl;
 
+    @Autowired
+    private UserServiceImpl userServiceImpl;
 
     @Autowired
     private PaymentDetailServiceImpl paymentDetailServiceImpl;
@@ -198,21 +204,35 @@ public class StudentHandleController {
     
 
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<SuccessResponse> uploadFile(@RequestHeader("Authorization")String jwt,
+                                        @RequestPart("file") MultipartFile file,
+                                        @RequestPart("admissionForm")AdmissionForm admissionForm) {
+        User user = this.userServiceImpl.getUserByJWT(jwt);
+        SuccessResponse response = new SuccessResponse();
         try {
             if (file.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is empty.");
+                response.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+                response.setHttpStatusCode(500);
+                response.setMessage("File is empty.");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
             }
+             excelExporter.extractStudents(file,admissionForm,user);
 
-            // Parse the Excel file into a list of Student objects
-            List<Student> students = excelExporter.extractStudents(file);
-            // System.out.println(students.toString());
-            return ResponseEntity.ok(students);
+             response.setHttpStatus(HttpStatus.OK);
+             response.setHttpStatusCode(200);
+             response.setMessage("Add all Students successfully !");
+            return ResponseEntity.of(Optional.of(response));
 
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing file: " + e.getMessage());
+            response.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setHttpStatusCode(500);
+            response.setMessage(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid file format: " + e.getMessage());
+            response.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setHttpStatusCode(500);
+            response.setMessage(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
     

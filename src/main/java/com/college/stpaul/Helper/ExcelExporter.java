@@ -3,9 +3,13 @@ package com.college.stpaul.Helper;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.college.stpaul.constants.PaymentType;
+import com.college.stpaul.constants.Result;
+import com.college.stpaul.entities.AdmissionForm;
 import com.college.stpaul.entities.BankDetails;
 import com.college.stpaul.entities.BioFocalSubject;
 import com.college.stpaul.entities.GuardianInfo;
@@ -14,6 +18,18 @@ import com.college.stpaul.entities.PaymentDetails;
 import com.college.stpaul.entities.Student;
 import com.college.stpaul.entities.Subject;
 import com.college.stpaul.entities.Subjects;
+import com.college.stpaul.entities.User;
+import com.college.stpaul.services.serviceImpl.AdmissionFormImpl;
+import com.college.stpaul.services.serviceImpl.BankDetailsServiceImpl;
+import com.college.stpaul.services.serviceImpl.BioFocalSubjectServiceImpl;
+import com.college.stpaul.services.serviceImpl.DocumentsServiceImpl;
+import com.college.stpaul.services.serviceImpl.GuardianInfoServiceImpl;
+import com.college.stpaul.services.serviceImpl.LastCollegeServiceImpl;
+import com.college.stpaul.services.serviceImpl.PaymentDetailServiceImpl;
+import com.college.stpaul.services.serviceImpl.StudentServiceImpl;
+import com.college.stpaul.services.serviceImpl.SubjectServiceImpl;
+import com.college.stpaul.services.serviceImpl.SubjectsServiceImpl;
+import com.college.stpaul.services.serviceImpl.UserServiceImpl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -23,6 +39,40 @@ import java.util.List;
 
 @Component
 public class ExcelExporter {
+
+    @Autowired
+        private AdmissionFormImpl admissionFormImpl;
+    
+        @Autowired
+        private UserServiceImpl userServiceImpl;
+    
+        @Autowired
+        private StudentServiceImpl studentServiceImpl;
+    
+        @Autowired
+        private BankDetailsServiceImpl bankDetailsServiceImpl;
+    
+        @Autowired
+        private LastCollegeServiceImpl lastCollegeServiceImpl;
+    
+        @Autowired
+        private GuardianInfoServiceImpl guardianInfoServiceImpl;
+    
+        @Autowired
+        private DocumentsServiceImpl documentsServiceImpl;
+    
+        @Autowired
+        private SubjectsServiceImpl subjectsServiceImpl;
+    
+        @Autowired
+        private BioFocalSubjectServiceImpl bioFocalSubjectServiceImpl;
+
+        @Autowired
+        private SubjectServiceImpl subjectServiceImpl;
+
+
+        @Autowired
+        private PaymentDetailServiceImpl paymentDetailServiceImpl;
 
     public byte[] exportToExcel(List<Student> students) throws IOException {
         Workbook workbook = new XSSFWorkbook();
@@ -217,54 +267,108 @@ public class ExcelExporter {
     }
 
 
-     public List<Student> extractStudents(MultipartFile file) throws IOException {
-        List<Student> students = new ArrayList<>();
+
+    // import students 
+
+    public void extractStudents(MultipartFile file,AdmissionForm admissionForm,User user) throws IOException {
+
         Workbook workbook = new XSSFWorkbook(file.getInputStream());
         Sheet sheet = workbook.getSheetAt(0);
-
+    
         Iterator<Row> rowIterator = sheet.iterator();
         if (rowIterator.hasNext()) {
             rowIterator.next(); // Skip header row
         }
-
+    
         while (rowIterator.hasNext()) {
             Row row = rowIterator.next();
+
             Student student = new Student();
+            AdmissionForm admission = new AdmissionForm();
+            admission.setSession(admissionForm.getSession());
+            admission.setSection(admissionForm.getSection());
+            admission.setStdClass(admissionForm.getStdClass());
+            admission.setUser(user);
+            admission = this.admissionFormImpl.addAdmissionForm(admission);
+    
+            // Map Student Basic Info
+            student.setFirstName(row.getCell(1) != null ? row.getCell(1).getStringCellValue() : null);
+            student.setFatherName(row.getCell(2) != null ? row.getCell(2).getStringCellValue() : null);
+            student.setMotherName(row.getCell(3) != null ? row.getCell(3).getStringCellValue() : null);
+            student.setSurname(row.getCell(4) != null ? row.getCell(4).getStringCellValue() : null);
+            student.setEmail(row.getCell(5) != null ? row.getCell(5).getStringCellValue() : null);
+            student.setPhoneNo(row.getCell(6) != null ? row.getCell(6).getStringCellValue() : null);
+            student.setDob(row.getCell(7) != null ? row.getCell(7).getStringCellValue() : null);
+            student.setAdharNo(row.getCell(8) != null ? row.getCell(8).getStringCellValue() : null);
+            student.setBloodGroup(row.getCell(9) != null ? row.getCell(9).getStringCellValue() : null);
+            student.setCurrentClass(row.getCell(10) != null ? row.getCell(10).getStringCellValue() : null);
+            student.setResult(row.getCell(11) != null ? Result.valueOf(row.getCell(11).getStringCellValue().toUpperCase()) : null);
+            student.setRollNo(row.getCell(12) != null ? row.getCell(12).getStringCellValue() : null);
+            student.setSession(row.getCell(13) != null ? row.getCell(13).getStringCellValue() : null);
+            student.setGender(row.getCell(14) != null ? row.getCell(14).getStringCellValue() : null);
+            student.setCaste(row.getCell(15) != null ? row.getCell(15).getStringCellValue() : null);
+            student.setCategory(row.getCell(16) != null ? row.getCell(16).getStringCellValue() : null);
+            student.setScholarshipCategory(row.getCell(17) != null ? row.getCell(17).getStringCellValue() : null);
+            student.setLocalAddress(row.getCell(18) != null ? row.getCell(18).getStringCellValue() : null);
+            student.setPermanentAddress(row.getCell(19) != null ? row.getCell(19).getStringCellValue() : null);
+            student.setAdmissionForm(admission);
+            student = this.studentServiceImpl.addStudent(student);
 
-            // Map basic student details
-            // student.setId((long) row.getCell(0).getNumericCellValue());
-            student.setFirstName(row.getCell(1).getStringCellValue());
-            student.setFatherName(row.getCell(2).getStringCellValue());
-            student.setMotherName(row.getCell(3).getStringCellValue());
-            student.setSurname(row.getCell(4).getStringCellValue());
-            student.setEmail(row.getCell(5).getStringCellValue());
-            student.setPhoneNo(row.getCell(6).getStringCellValue());
-            student.setGender(row.getCell(7).getStringCellValue());
-            student.setCaste(row.getCell(8).getStringCellValue());
-            student.setCategory(row.getCell(9).getStringCellValue());
-            student.setScholarshipCategory(row.getCell(10).getStringCellValue());
-            student.setLocalAddress(row.getCell(11).getStringCellValue());
-            student.setPermanentAddress(row.getCell(12).getStringCellValue());
-
+    
             // Map Guardian Info
             GuardianInfo guardianInfo = new GuardianInfo();
-            guardianInfo.setGuardianName(row.getCell(13).getStringCellValue());
-            guardianInfo.setGuardianRelation(row.getCell(14).getStringCellValue());
-            guardianInfo.setGuardianPhoneNo(row.getCell(15).getStringCellValue());
-            guardianInfo.setGuardianOccupation(row.getCell(16).getStringCellValue());
-            guardianInfo.setGuardianIncome(row.getCell(17).getStringCellValue());
+            guardianInfo.setGuardianName(row.getCell(20) != null ? row.getCell(20).getStringCellValue() : null);
+            guardianInfo.setGuardianRelation(row.getCell(21) != null ? row.getCell(21).getStringCellValue() : null);
+            guardianInfo.setGuardianPhoneNo(row.getCell(22) != null ? row.getCell(22).getStringCellValue() : null);
+            guardianInfo.setGuardianOccupation(row.getCell(23) != null ? row.getCell(23).getStringCellValue() : null);
+            guardianInfo.setGuardianIncome(row.getCell(24) != null ? row.getCell(24).getStringCellValue() : null);
             guardianInfo.setStudent(student);
-            student.setGuardianInfo(guardianInfo);
-
+            this.guardianInfoServiceImpl.addGuardianInfo(guardianInfo);
+    
+            // Map Bank Details
+            BankDetails  bankDetails= new BankDetails();
+            bankDetails.setBankName(row.getCell(25) != null ? row.getCell(25).getStringCellValue() : null);
+            bankDetails.setAccountNo(row.getCell(26) != null ? row.getCell(26).getStringCellValue() : null);
+            bankDetails.setBankBranch(row.getCell(27) != null ? row.getCell(27).getStringCellValue() : null);
+            bankDetails.setIfscCode(row.getCell(28) != null ? row.getCell(28).getStringCellValue() : null);
+            bankDetails.setStudent(student);
+            this.bankDetailsServiceImpl.addBankDetails(bankDetails);
+    
+            // Map Last College Info
+            LastCollege lastCollege = new LastCollege();
+            lastCollege.setCollegeName(row.getCell(29) != null ? row.getCell(29).getStringCellValue() : null);
+            lastCollege.setRollNo(row.getCell(30) != null ? row.getCell(30).getStringCellValue() : null);
+            lastCollege.setUdiseNo(row.getCell(31) != null ? row.getCell(31).getStringCellValue() : null);
+            lastCollege.setLastStudentId(row.getCell(32) != null ? row.getCell(32).getStringCellValue() : null);
+            lastCollege.setExamMonth(row.getCell(33) != null ? row.getCell(33).getStringCellValue() : null);
+            lastCollege.setResult(row.getCell(34) != null ? Result.valueOf(row.getCell(34).getStringCellValue().toUpperCase()) : null);
+            lastCollege.setExamination(row.getCell(35) != null ? row.getCell(35).getStringCellValue() : null);
+            lastCollege.setMarksObtained(row.getCell(36) != null ? (int) row.getCell(36).getNumericCellValue() : 0);
+            lastCollege.setAtkt(row.getCell(37) != null && row.getCell(37).getBooleanCellValue());
+            lastCollege.setStudent(student);
+            this.lastCollegeServiceImpl.addLastCollege(lastCollege);
+    
+            // Map Payment Details
+            PaymentDetails paymentDetails = new PaymentDetails();
+            paymentDetails.setInstallments(row.getCell(38) != null ? (int) row.getCell(38).getNumericCellValue() : 0);
+            paymentDetails.setInstallmentGap(row.getCell(39) != null ? (int) row.getCell(39).getNumericCellValue() : 0);
+            paymentDetails.setTotalFees(row.getCell(40) != null ? (Double) row.getCell(40).getNumericCellValue() : 0.0);
+            paymentDetails.setPaidAmount(row.getCell(41) != null ? (Double) row.getCell(41).getNumericCellValue() : 0.0);
+            paymentDetails.setBalanceAmount(row.getCell(42) != null ? (Double) row.getCell(42).getNumericCellValue() : 0.0);
+            paymentDetails.setPaymentType(row.getCell(43) != null ? PaymentType.valueOf(row.getCell(43).getStringCellValue().toUpperCase()) : null);
+            paymentDetails.setInstallmentAmount(row.getCell(44) != null ? (Double) row.getCell(44).getNumericCellValue() : 0.0);
+            paymentDetails.setDueDate(row.getCell(45) != null ? row.getCell(45).getStringCellValue() : null);
+            paymentDetails.setStudent(student);
+            this.paymentDetailServiceImpl.addPaymentDetails(paymentDetails);
+    
             // Map Subjects
             Subjects subjects = new Subjects();
-            subjects.setStream(row.getCell(34).getStringCellValue());
-            subjects.setSubStream(row.getCell(35).getStringCellValue());
+            subjects.setStream(row.getCell(46) != null ? row.getCell(46).getStringCellValue() : null);
+            subjects.setSubStream(row.getCell(47) != null ? row.getCell(47).getStringCellValue() : null);
+            String[] subjectDetails = row.getCell(48) != null ? row.getCell(48).getStringCellValue().split("\\n") : new String[0];
             subjects.setStudent(student);
-
-            List<Subject> subjectList = new ArrayList<>();
-            String[] subjectDetails = row.getCell(36).getStringCellValue().split("\\n");
-
+            subjects.setSubject(null);
+            subjects = this.subjectsServiceImpl.addSubjects(subjects);
             for (String detail : subjectDetails) {
                 String[] subjectParts = detail.split("\\(");
                 if (subjectParts.length == 2) {
@@ -272,17 +376,34 @@ public class ExcelExporter {
                     subject.setName(subjectParts[0].trim());
                     subject.setMedium(subjectParts[1].replace(")", "").trim());
                     subject.setSubjects(subjects);
-                    subjectList.add(subject);
+                    this.subjectServiceImpl.addSubject(subject);
                 }
             }
-            subjects.setSubject(subjectList);
-            student.setSubjects(subjects);
+    
+            // Map BioFocal Subjects
+            BioFocalSubject bioFocalSubject = new BioFocalSubject();
+            bioFocalSubject.setStream(row.getCell(49) != null ? row.getCell(49).getStringCellValue() : null);
+            String[] bioSubjectDetails = row.getCell(50) != null ? row.getCell(50).getStringCellValue().split("\\n") : new String[0];
+            bioFocalSubject.setStudent(student);
+            bioFocalSubject.setSubject(null);
+            bioFocalSubject = this.bioFocalSubjectServiceImpl.addBioFocalSubject(bioFocalSubject);
+            for (String detail : bioSubjectDetails) {
+                String[] bioParts = detail.split("\\(");
+                if (bioParts.length == 2) {
+                    Subject bioSubject = new Subject();
+                    bioSubject.setName(bioParts[0].trim());
+                    bioSubject.setMedium(bioParts[1].replace(")", "").trim());
+                    bioSubject.setBioFocalSubject(bioFocalSubject); // Link BioFocal subjects to subjects
+                    this.subjectServiceImpl.addSubject(bioSubject);
+                }
+            }
 
-            students.add(student);
         }
-
+    
         workbook.close();
-        return students;
+        return ;
     }
+    
+    
 }
 
