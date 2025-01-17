@@ -32,14 +32,16 @@ public class ExcelExporter {
         Row headerRow = sheet.createRow(0);
         String[] headers = {
             "ID", "First Name", "Father Name", "Mother Name", "Surname", "Email", "Phone No",
+            "DOB","Adhar No","Blood group","Current Class","Result","Roll No","Session",
             "Gender", "Caste", "Category", "Scholarship Category",
             "Local Address", "Permanent Address",
             "Guardian Name", "Guardian Relation", "Guardian Phone", "Guardian Occupation", "Guardian Income",
             "Bank Name", "Bank Account No", "Bank Branch", "IFSC Code",
-            "Last College Name", "Last College Roll No", "Examination", "Marks Obtained", "ATKT",
-            "Installments", "Installment Gap", "Total Fees", "Paid Amount", "Balance Amount", "Installment Amount",
+            "Last College Name", "Last College Roll No","U Dise No","Past Student Id","Exam month","Result", "Examination", "Marks Obtained", "ATKT",
+            "Installments", "Installment Gap", "Total Fees", "Paid Amount", "Balance Amount","Payment Type", "Installment Amount",
             "Due Date",
-            "Stream", "Substream", "Subjects"
+            "Stream", "Substream", "Subjects",
+            "BioFocal Stream","bioFocal Subjects"
         };
 
         for (int i = 0; i < headers.length; i++) {
