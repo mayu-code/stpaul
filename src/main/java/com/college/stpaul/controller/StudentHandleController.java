@@ -235,5 +235,18 @@ public class StudentHandleController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+
+
+    @GetMapping("/emptySheet")
+    public ResponseEntity<ByteArrayResource> emptySheet() throws IOException {
+        byte[] excelData = excelExporter.emptyExcelSheet();
+
+        ByteArrayResource resource = new ByteArrayResource(excelData);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=students.xlsx")
+                .header(HttpHeaders.CONTENT_TYPE, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                .body(resource);
+    }
     
 }
