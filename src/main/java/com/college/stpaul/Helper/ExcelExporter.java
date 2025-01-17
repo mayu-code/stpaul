@@ -74,6 +74,7 @@ public class ExcelExporter {
         @Autowired
         private PaymentDetailServiceImpl paymentDetailServiceImpl;
 
+    @SuppressWarnings("null")
     public byte[] exportToExcel(List<Student> students) throws IOException {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Students");
@@ -114,13 +115,13 @@ public class ExcelExporter {
             row.createCell(3).setCellValue(student.getMotherName());
             row.createCell(4).setCellValue(student.getSurname());
             row.createCell(5).setCellValue(student.getEmail());
-            row.createCell(6).setCellValue(student.getPhoneNo());
+            row.createCell(6).setCellValue(Integer.parseInt(student.getPhoneNo()));
             row.createCell(7).setCellValue(student.getDob());
-            row.createCell(8).setCellValue(student.getAdharNo());
+            row.createCell(8).setCellValue(Integer.parseInt(student.getAdharNo()));
             row.createCell(9).setCellValue(student.getBloodGroup());
             row.createCell(10).setCellValue(student.getCurrentClass());
             row.createCell(11).setCellValue(student.getResult().toString());
-            row.createCell(12).setCellValue(student.getRollNo());
+            row.createCell(12).setCellValue(Integer.parseInt(student.getRollNo()));
             row.createCell(13).setCellValue(student.getSession());
         
             row.createCell(14).setCellValue(student.getGender());
@@ -134,23 +135,23 @@ public class ExcelExporter {
             GuardianInfo guardianInfo = student.getGuardianInfo();
             row.createCell(20).setCellValue(guardianInfo != null ? guardianInfo.getGuardianName() : "N/A");
             row.createCell(21).setCellValue(guardianInfo != null ? guardianInfo.getGuardianRelation() : "N/A");
-            row.createCell(22).setCellValue(guardianInfo != null ? guardianInfo.getGuardianPhoneNo() : "N/A");
+            row.createCell(22).setCellValue(guardianInfo != null ? Integer.parseInt(guardianInfo.getGuardianPhoneNo()) : null);
             row.createCell(23).setCellValue(guardianInfo != null ? guardianInfo.getGuardianOccupation() : "N/A");
-            row.createCell(24).setCellValue(guardianInfo != null ? guardianInfo.getGuardianIncome() : "N/A");
+            row.createCell(24).setCellValue(guardianInfo != null ? Integer.parseInt(guardianInfo.getGuardianIncome()) : null);
 
             // Bank Details
             BankDetails bankDetails = student.getBankDetails();
             row.createCell(25).setCellValue(bankDetails != null ? bankDetails.getBankName() : "N/A");
-            row.createCell(26).setCellValue(bankDetails != null ? bankDetails.getAccountNo() : "N/A");
+            row.createCell(26).setCellValue(bankDetails != null ? Integer.parseInt(bankDetails.getAccountNo()) : null);
             row.createCell(27).setCellValue(bankDetails != null ? bankDetails.getBankBranch() : "N/A");
             row.createCell(28).setCellValue(bankDetails != null ? bankDetails.getIfscCode() : "N/A");
 
             // Last College Info
             LastCollege lastCollege = student.getLastCollege();
             row.createCell(29).setCellValue(lastCollege != null ? lastCollege.getCollegeName() : "N/A");
-            row.createCell(30).setCellValue(lastCollege != null ? lastCollege.getRollNo() : "N/A");
-            row.createCell(31).setCellValue(lastCollege != null ? lastCollege.getUdiseNo(): "N/A");
-            row.createCell(32).setCellValue(lastCollege != null ? lastCollege.getLastStudentId() : "N/A");
+            row.createCell(30).setCellValue(lastCollege != null ? Integer.parseInt(lastCollege.getRollNo()) : null);
+            row.createCell(31).setCellValue(lastCollege != null ? Integer.parseInt(lastCollege.getUdiseNo()): null);
+            row.createCell(32).setCellValue(lastCollege != null ? Integer.parseInt(lastCollege.getLastStudentId()) : null);
             row.createCell(33).setCellValue(lastCollege != null ? lastCollege.getExamMonth() : "N/A");
             row.createCell(34).setCellValue(lastCollege != null ? lastCollege.getResult().toString() : "N/A");
             row.createCell(35).setCellValue(lastCollege != null ? lastCollege.getExamination() : "N/A");
