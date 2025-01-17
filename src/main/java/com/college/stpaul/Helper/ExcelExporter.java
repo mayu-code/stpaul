@@ -43,8 +43,6 @@ public class ExcelExporter {
     @Autowired
         private AdmissionFormImpl admissionFormImpl;
     
-        @Autowired
-        private UserServiceImpl userServiceImpl;
     
         @Autowired
         private StudentServiceImpl studentServiceImpl;
@@ -58,8 +56,6 @@ public class ExcelExporter {
         @Autowired
         private GuardianInfoServiceImpl guardianInfoServiceImpl;
     
-        @Autowired
-        private DocumentsServiceImpl documentsServiceImpl;
     
         @Autowired
         private SubjectsServiceImpl subjectsServiceImpl;
@@ -115,13 +111,19 @@ public class ExcelExporter {
             row.createCell(3).setCellValue(student.getMotherName());
             row.createCell(4).setCellValue(student.getSurname());
             row.createCell(5).setCellValue(student.getEmail());
-            row.createCell(6).setCellValue(Integer.parseInt(student.getPhoneNo()));
+            if (student.getPhoneNo() != null) {
+                row.createCell(6).setCellValue(Long.parseLong(student.getPhoneNo()));
+            }            
             row.createCell(7).setCellValue(student.getDob());
-            row.createCell(8).setCellValue(Integer.parseInt(student.getAdharNo()));
+            if (student.getAdharNo() != null) {
+                row.createCell(8).setCellValue(Long.parseLong(student.getAdharNo()));
+            }            
             row.createCell(9).setCellValue(student.getBloodGroup());
             row.createCell(10).setCellValue(student.getCurrentClass());
             row.createCell(11).setCellValue(student.getResult().toString());
-            row.createCell(12).setCellValue(Integer.parseInt(student.getRollNo()));
+            if (student.getRollNo() != null) {
+                row.createCell(12).setCellValue(Long.parseLong(student.getRollNo()));
+            }            
             row.createCell(13).setCellValue(student.getSession());
         
             row.createCell(14).setCellValue(student.getGender());
@@ -135,23 +137,39 @@ public class ExcelExporter {
             GuardianInfo guardianInfo = student.getGuardianInfo();
             row.createCell(20).setCellValue(guardianInfo != null ? guardianInfo.getGuardianName() : "N/A");
             row.createCell(21).setCellValue(guardianInfo != null ? guardianInfo.getGuardianRelation() : "N/A");
-            row.createCell(22).setCellValue(guardianInfo != null ? Integer.parseInt(guardianInfo.getGuardianPhoneNo()) : null);
+            if (guardianInfo != null && guardianInfo.getGuardianPhoneNo() != null) {
+                row.createCell(22).setCellValue(Long.parseLong(guardianInfo.getGuardianPhoneNo()));
+            }            
             row.createCell(23).setCellValue(guardianInfo != null ? guardianInfo.getGuardianOccupation() : "N/A");
-            row.createCell(24).setCellValue(guardianInfo != null ? Integer.parseInt(guardianInfo.getGuardianIncome()) : null);
+            if (guardianInfo != null && guardianInfo.getGuardianIncome() != null) {
+                row.createCell(24).setCellValue(Long.parseLong(guardianInfo.getGuardianIncome()));
+            }
+            
 
             // Bank Details
             BankDetails bankDetails = student.getBankDetails();
             row.createCell(25).setCellValue(bankDetails != null ? bankDetails.getBankName() : "N/A");
-            row.createCell(26).setCellValue(bankDetails != null ? Integer.parseInt(bankDetails.getAccountNo()) : null);
+            if (bankDetails != null && bankDetails.getAccountNo() != null) {
+                row.createCell(26).setCellValue(Long.parseLong(bankDetails.getAccountNo()));
+            }            
             row.createCell(27).setCellValue(bankDetails != null ? bankDetails.getBankBranch() : "N/A");
             row.createCell(28).setCellValue(bankDetails != null ? bankDetails.getIfscCode() : "N/A");
 
             // Last College Info
             LastCollege lastCollege = student.getLastCollege();
             row.createCell(29).setCellValue(lastCollege != null ? lastCollege.getCollegeName() : "N/A");
-            row.createCell(30).setCellValue(lastCollege != null ? Integer.parseInt(lastCollege.getRollNo()) : null);
-            row.createCell(31).setCellValue(lastCollege != null ? Integer.parseInt(lastCollege.getUdiseNo()): null);
-            row.createCell(32).setCellValue(lastCollege != null ? Integer.parseInt(lastCollege.getLastStudentId()) : null);
+            if (lastCollege != null && lastCollege.getRollNo() != null) {
+                row.createCell(30).setCellValue(Long.parseLong(lastCollege.getRollNo()));
+            }
+            
+            if (lastCollege != null && lastCollege.getUdiseNo() != null) {
+                row.createCell(31).setCellValue(Long.parseLong(lastCollege.getUdiseNo()));
+            }
+            
+            if (lastCollege != null && lastCollege.getLastStudentId() != null) {
+                row.createCell(32).setCellValue(Long.parseLong(lastCollege.getLastStudentId()));
+            }
+            
             row.createCell(33).setCellValue(lastCollege != null ? lastCollege.getExamMonth() : "N/A");
             row.createCell(34).setCellValue(lastCollege != null ? lastCollege.getResult().toString() : "N/A");
             row.createCell(35).setCellValue(lastCollege != null ? lastCollege.getExamination() : "N/A");
