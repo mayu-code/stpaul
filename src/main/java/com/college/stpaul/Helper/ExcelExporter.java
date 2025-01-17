@@ -545,7 +545,7 @@ public class ExcelExporter {
         cell36.setCellValue(73);
     
         Cell cell37 = dataRow.createCell(36);
-        cell37.setCellValue("FALSE");
+        cell37.setCellValue(false);
     
         Cell cell38 = dataRow.createCell(37);
         cell38.setCellValue(0);
