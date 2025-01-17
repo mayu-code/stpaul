@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.college.stpaul.Helper.DateTimeFormat;
 import com.college.stpaul.Helper.ExcelExporter;
@@ -195,5 +196,24 @@ public class StudentHandleController {
                 .body(resource);
     }
     
+
+    @PostMapping("/upload")
+    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
+        try {
+            if (file.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is empty.");
+            }
+
+            // Parse the Excel file into a list of Student objects
+            List<Student> students = excelExporter.extractStudents(file);
+            // System.out.println(students.toString());
+            return ResponseEntity.ok(students);
+
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing file: " + e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid file format: " + e.getMessage());
+        }
+    }
     
 }
