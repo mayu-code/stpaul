@@ -71,124 +71,118 @@ public class ExcelExporter {
     public byte[] exportToExcel(List<Student> students) throws IOException {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Students");
-
+    
         // Header Row
         Row headerRow = sheet.createRow(0);
         String[] headers = {
-            "ID", "First Name", "Father Name", "Mother Name", "Surname", "Email", "Phone No",
-            "DOB","Adhar No","Blood group","Current Class","Result","Roll No","Session",
-            "Gender", "Caste", "Category", "Scholarship Category",
-            "Local Address", "Permanent Address",
-            "Guardian Name", "Guardian Relation", "Guardian Phone", "Guardian Occupation", "Guardian Income",
-            "Bank Name", "Bank Account No", "Bank Branch", "IFSC Code",
-            "Last College Name", "Last College Roll No","U Dise No","Past Student Id","Exam month","Result", "Examination", "Marks Obtained", "ATKT",
-            "Installments", "Installment Gap", "Total Fees", "Paid Amount", "Balance Amount","Payment Type", "Installment Amount",
-            "Due Date",
-            "Stream", "Substream", "Subjects",
-            "BioFocal Stream","bioFocal Subjects"
+            "ID", "Session", "Current Class", "Section", "First Name", "Father Name", "Mother Name", "Surname", "Email", "Phone No",
+            "DOB", "Adhar No", "Blood group", "Result", "Roll No", "Gender", "Caste", "Category", "Scholarship Category",
+            "Local Address", "Permanent Address", "Guardian Name", "Guardian Relation", "Guardian Phone", "Guardian Occupation", "Guardian Income",
+            "Bank Name", "Bank Account No", "Bank Branch", "IFSC Code", "Last College Name", "Last College Roll No", "U Dise No", 
+            "Past Student Id", "Exam month", "Result", "Examination", "Marks Obtained", "ATKT",
+            "Installments", "Installment Gap", "Total Fees", "Paid Amount", "Balance Amount", "Payment Type", "Installment Amount",
+            "Due Date", "Stream", "Substream", "Subjects", "BioFocal Stream", "bioFocal Subjects"
         };
-
+    
         for (int i = 0; i < headers.length; i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(headers[i]);
         }
-
+    
         int rowIndex = 1;
         for (Student student : students) {
             Row row = sheet.createRow(rowIndex++);
-
+    
             // Basic Student Info
             row.createCell(0).setCellValue(student.getId());
-            row.createCell(1).setCellValue(student.getFirstName());
-            row.createCell(2).setCellValue(student.getFatherName());
-            row.createCell(3).setCellValue(student.getMotherName());
-            row.createCell(4).setCellValue(student.getSurname());
-            row.createCell(5).setCellValue(student.getEmail());
+            row.createCell(1).setCellValue(student.getSession());
+            row.createCell(2).setCellValue(student.getCurrentClass());
+            row.createCell(3).setCellValue(student.getSection());
+            row.createCell(4).setCellValue(student.getFirstName());
+            row.createCell(5).setCellValue(student.getFatherName());
+            row.createCell(6).setCellValue(student.getMotherName());
+            row.createCell(7).setCellValue(student.getSurname());
+            row.createCell(8).setCellValue(student.getEmail());
             if (student.getPhoneNo() != null) {
-                row.createCell(6).setCellValue(Long.parseLong(student.getPhoneNo()));
-            }            
-            row.createCell(7).setCellValue(student.getDob());
+                row.createCell(9).setCellValue(Long.parseLong(student.getPhoneNo()));
+            }
+            row.createCell(10).setCellValue(student.getDob());
             if (student.getAdharNo() != null) {
-                row.createCell(8).setCellValue(Long.parseLong(student.getAdharNo()));
-            }            
-            row.createCell(9).setCellValue(student.getBloodGroup());
-            row.createCell(10).setCellValue(student.getCurrentClass());
-            row.createCell(11).setCellValue(student.getResult().toString());
+                row.createCell(11).setCellValue(Long.parseLong(student.getAdharNo()));
+            }
+            row.createCell(12).setCellValue(student.getBloodGroup());
+            row.createCell(13).setCellValue(student.getResult().toString());
             if (student.getRollNo() != null) {
-                row.createCell(12).setCellValue(Long.parseLong(student.getRollNo()));
-            }            
-            row.createCell(13).setCellValue(student.getSession());
-        
-            row.createCell(14).setCellValue(student.getGender());
-            row.createCell(15).setCellValue(student.getCaste());
-            row.createCell(16).setCellValue(student.getCategory());
-            row.createCell(17).setCellValue(student.getScholarshipCategory());
-            row.createCell(18).setCellValue(student.getLocalAddress());
-            row.createCell(19).setCellValue(student.getPermanentAddress());
-
+                row.createCell(14).setCellValue(Long.parseLong(student.getRollNo()));
+            }
+            row.createCell(15).setCellValue(student.getGender());
+            row.createCell(16).setCellValue(student.getCaste());
+            row.createCell(17).setCellValue(student.getCategory());
+            row.createCell(18).setCellValue(student.getScholarshipCategory());
+            row.createCell(19).setCellValue(student.getLocalAddress());
+            row.createCell(20).setCellValue(student.getPermanentAddress());
+    
             // Guardian Info
             GuardianInfo guardianInfo = student.getGuardianInfo();
-            row.createCell(20).setCellValue(guardianInfo != null ? guardianInfo.getGuardianName() : "N/A");
-            row.createCell(21).setCellValue(guardianInfo != null ? guardianInfo.getGuardianRelation() : "N/A");
+            row.createCell(21).setCellValue(guardianInfo != null ? guardianInfo.getGuardianName() : "N/A");
+            row.createCell(22).setCellValue(guardianInfo != null ? guardianInfo.getGuardianRelation() : "N/A");
             if (guardianInfo != null && guardianInfo.getGuardianPhoneNo() != null) {
-                row.createCell(22).setCellValue(Long.parseLong(guardianInfo.getGuardianPhoneNo()));
-            }            
-            row.createCell(23).setCellValue(guardianInfo != null ? guardianInfo.getGuardianOccupation() : "N/A");
-            if (guardianInfo != null && guardianInfo.getGuardianIncome() != null) {
-                row.createCell(24).setCellValue(Long.parseLong(guardianInfo.getGuardianIncome()));
+                row.createCell(23).setCellValue(Long.parseLong(guardianInfo.getGuardianPhoneNo()));
             }
-            
-
+            row.createCell(24).setCellValue(guardianInfo != null ? guardianInfo.getGuardianOccupation() : "N/A");
+            if (guardianInfo != null && guardianInfo.getGuardianIncome() != null) {
+                row.createCell(25).setCellValue(Long.parseLong(guardianInfo.getGuardianIncome()));
+            }
+    
             // Bank Details
             BankDetails bankDetails = student.getBankDetails();
-            row.createCell(25).setCellValue(bankDetails != null ? bankDetails.getBankName() : "N/A");
+            row.createCell(26).setCellValue(bankDetails != null ? bankDetails.getBankName() : "N/A");
             if (bankDetails != null && bankDetails.getAccountNo() != null) {
-                row.createCell(26).setCellValue(Long.parseLong(bankDetails.getAccountNo()));
-            }            
-            row.createCell(27).setCellValue(bankDetails != null ? bankDetails.getBankBranch() : "N/A");
-            row.createCell(28).setCellValue(bankDetails != null ? bankDetails.getIfscCode() : "N/A");
-
+                row.createCell(27).setCellValue(Long.parseLong(bankDetails.getAccountNo()));
+            }
+            row.createCell(28).setCellValue(bankDetails != null ? bankDetails.getBankBranch() : "N/A");
+            row.createCell(29).setCellValue(bankDetails != null ? bankDetails.getIfscCode() : "N/A");
+    
             // Last College Info
             LastCollege lastCollege = student.getLastCollege();
-            row.createCell(29).setCellValue(lastCollege != null ? lastCollege.getCollegeName() : "N/A");
+            row.createCell(30).setCellValue(lastCollege != null ? lastCollege.getCollegeName() : "N/A");
             if (lastCollege != null && lastCollege.getRollNo() != null) {
-                row.createCell(30).setCellValue(Long.parseLong(lastCollege.getRollNo()));
+                row.createCell(31).setCellValue(Long.parseLong(lastCollege.getRollNo()));
             }
             if (lastCollege != null && lastCollege.getUdiseNo() != null) {
-                row.createCell(31).setCellValue(Long.parseLong(lastCollege.getUdiseNo()));
-            } 
-            if (lastCollege != null && lastCollege.getLastStudentId() != null) {
-                row.createCell(32).setCellValue(Long.parseLong(lastCollege.getLastStudentId()));
+                row.createCell(32).setCellValue(Long.parseLong(lastCollege.getUdiseNo()));
             }
-            row.createCell(33).setCellValue(lastCollege != null ? lastCollege.getExamMonth() : "N/A");
-            row.createCell(34).setCellValue(lastCollege != null ? lastCollege.getResult().toString() : "N/A");
-            row.createCell(35).setCellValue(lastCollege != null ? lastCollege.getExamination() : "N/A");
-            row.createCell(36).setCellValue(lastCollege != null ? lastCollege.getMarksObtained() : 0);
-            if(lastCollege != null){
-                if(lastCollege.isAtkt()){
-                    row.createCell(37).setCellValue("yes");
-                }else{
-                    row.createCell(37).setCellValue("no");
+            if (lastCollege != null && lastCollege.getLastStudentId() != null) {
+                row.createCell(33).setCellValue(Long.parseLong(lastCollege.getLastStudentId()));
+            }
+            row.createCell(34).setCellValue(lastCollege != null ? lastCollege.getExamMonth() : "N/A");
+            row.createCell(35).setCellValue(lastCollege != null ? lastCollege.getResult().toString() : "N/A");
+            row.createCell(36).setCellValue(lastCollege != null ? lastCollege.getExamination() : "N/A");
+            row.createCell(37).setCellValue(lastCollege != null ? lastCollege.getMarksObtained() : 0);
+            if (lastCollege != null) {
+                if (lastCollege.isAtkt()) {
+                    row.createCell(38).setCellValue("yes");
+                } else {
+                    row.createCell(38).setCellValue("no");
                 }
             }
-
+    
             // Payment Info
             PaymentDetails paymentDetails = student.getPaymentDetails();
-            row.createCell(38).setCellValue(paymentDetails != null ? paymentDetails.getInstallments() : 0);
-            row.createCell(39).setCellValue(paymentDetails != null ? paymentDetails.getInstallmentGap() : 0);
-            row.createCell(40).setCellValue(paymentDetails != null ? paymentDetails.getTotalFees() : 0.0);
-            row.createCell(41).setCellValue(paymentDetails != null ? paymentDetails.getPaidAmount() : 0.0);
-            row.createCell(42).setCellValue(paymentDetails != null ? paymentDetails.getBalanceAmount() : 0.0);
-            row.createCell(43).setCellValue(paymentDetails != null ? paymentDetails.getPaymentType().toString() : "N/A"); 
-            row.createCell(44).setCellValue(paymentDetails != null ? paymentDetails.getInstallmentAmount() : 0.0);
-            row.createCell(45).setCellValue(paymentDetails != null ? paymentDetails.getDueDate() : "N/A");
-
-
+            row.createCell(39).setCellValue(paymentDetails != null ? paymentDetails.getInstallments() : 0);
+            row.createCell(40).setCellValue(paymentDetails != null ? paymentDetails.getInstallmentGap() : 0);
+            row.createCell(41).setCellValue(paymentDetails != null ? paymentDetails.getTotalFees() : 0.0);
+            row.createCell(42).setCellValue(paymentDetails != null ? paymentDetails.getPaidAmount() : 0.0);
+            row.createCell(43).setCellValue(paymentDetails != null ? paymentDetails.getBalanceAmount() : 0.0);
+            row.createCell(44).setCellValue(paymentDetails != null ? paymentDetails.getPaymentType().toString() : "N/A");
+            row.createCell(45).setCellValue(paymentDetails != null ? paymentDetails.getInstallmentAmount() : 0.0);
+            row.createCell(46).setCellValue(paymentDetails != null ? paymentDetails.getDueDate() : "N/A");
+    
             // Subjects Info
             Subjects subjects = student.getSubjects();
-            row.createCell(46).setCellValue(subjects != null ? subjects.getStream() : "N/A");
-            row.createCell(47).setCellValue(subjects != null ? subjects.getSubStream() : "N/A");
-
+            row.createCell(47).setCellValue(subjects != null ? subjects.getStream() : "N/A");
+            row.createCell(48).setCellValue(subjects != null ? subjects.getSubStream() : "N/A");
+    
             StringBuilder subjectsInfo = new StringBuilder();
             List<Subject> subjectList = subjects != null ? subjects.getSubject() : null;
             if (subjectList != null) {
@@ -196,11 +190,12 @@ public class ExcelExporter {
                     subjectsInfo.append(subject.getName()).append(" (").append(subject.getMedium()).append(")\n");
                 }
             }
-            row.createCell(48).setCellValue(subjectsInfo.toString());
-
+            row.createCell(49).setCellValue(subjectsInfo.toString());
+    
+            // BioFocal Info
             BioFocalSubject bioFocalSubject = student.getBioFocalSubject();
-            row.createCell(49).setCellValue(bioFocalSubject != null ? bioFocalSubject.getStream() : "N/A");
-
+            row.createCell(50).setCellValue(bioFocalSubject != null ? bioFocalSubject.getStream() : "N/A");
+    
             StringBuilder biosubjectsInfo = new StringBuilder();
             List<Subject> biosubjectList = bioFocalSubject != null ? bioFocalSubject.getSubject() : null;
             if (biosubjectList != null) {
@@ -208,80 +203,22 @@ public class ExcelExporter {
                     biosubjectsInfo.append(subject.getName()).append(" (").append(subject.getMedium()).append(")\n");
                 }
             }
-            row.createCell(50).setCellValue(biosubjectsInfo.toString());
-            
+            row.createCell(51).setCellValue(biosubjectsInfo.toString());
         }
-
-
-
+    
         // Auto-size columns
         for (int i = 0; i < headers.length; i++) {
             sheet.autoSizeColumn(i);
         }
-
+    
         // Write data to a byte array
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         workbook.write(outputStream);
         workbook.close();
-
+    
         return outputStream.toByteArray();
     }
-
-    // public byte[] exportSubjectsToExcel(List<Subjects> subjectsList) throws IOException {
-    //     Workbook workbook = new XSSFWorkbook();
-    //     Sheet sheet = workbook.createSheet("Subjects");
-
-    //     // Header Row
-    //     Row headerRow = sheet.createRow(0);
-    //     String[] headers = {"Stream", "SubStream", "Subject Name", "Medium"};
-    //     for (int i = 0; i < headers.length; i++) {
-    //         Cell cell = headerRow.createCell(i);
-    //         cell.setCellValue(headers[i]);
-    //     }
-
-    //     int rowIndex = 1;
-
-    //     for (Subjects subjects : subjectsList) {
-    //         String stream = subjects.getStream();
-    //         String subStream = subjects.getSubStream();
-    //         List<Subject> subjectList = subjects.getSubject();
-
-    //         for (int i = 0; i < subjectList.size(); i++) {
-    //             Subject subject = subjectList.get(i);
-    //             Row row = sheet.createRow(rowIndex++);
-
-    //             if (i == 0) {
-    //                 // Merge cells for "Stream"
-    //                 sheet.addMergedRegion(new CellRangeAddress(rowIndex - 1, rowIndex + subjectList.size() - 2, 0, 0));
-    //                 Cell streamCell = row.createCell(0);
-    //                 streamCell.setCellValue(stream);
-
-    //                 // Merge cells for "SubStream"
-    //                 sheet.addMergedRegion(new CellRangeAddress(rowIndex - 1, rowIndex + subjectList.size() - 2, 1, 1));
-    //                 Cell subStreamCell = row.createCell(1);
-    //                 subStreamCell.setCellValue(subStream);
-    //             }
-
-
-    //             // Fill "Subject Name" and "Medium"
-    //             row.createCell(2).setCellValue(subject.getName());
-    //             row.createCell(3).setCellValue(subject.getMedium());
-    //         }
-    //     }
-
-    //     // Auto-size columns
-    //     for (int i = 0; i < headers.length; i++) {
-    //         sheet.autoSizeColumn(i);
-    //     }
-
-    //     // Write data to a byte array
-    //     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    //     workbook.write(outputStream);
-    //     workbook.close();
-
-    //     return outputStream.toByteArray();
-    // }
-
+    
 
 
     // import students 
