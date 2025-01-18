@@ -306,6 +306,9 @@ public class ExcelExporter {
             admission.setStdClass(admissionForm.getStdClass());
             admission.setUser(user);
             admission = this.admissionFormImpl.addAdmissionForm(admission);
+            student.setSection(admission.getSection());
+            student.setCurrentClass(admission.getStdClass());
+            student.setSession(admission.getSession());
     
             // Map Student Basic Info
             student.setFirstName(row.getCell(0) != null ? row.getCell(0).getStringCellValue() : null);
