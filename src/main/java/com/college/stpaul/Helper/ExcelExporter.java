@@ -434,16 +434,16 @@ public class ExcelExporter {
         Row headerRow = sheet.createRow(0);
         String[] headers = {
             "First Name", "Father Name", "Mother Name", "Surname", "Email", "Phone No",
-            "DOB","Adhar No","Blood group","Result","Roll No",
+            "DOB", "Adhar No", "Blood group", "Result", "Roll No",
             "Gender", "Caste", "Category", "Scholarship Category",
             "Local Address", "Permanent Address",
             "Guardian Name", "Guardian Relation", "Guardian Phone", "Guardian Occupation", "Guardian Income",
             "Bank Name", "Bank Account No", "Bank Branch", "IFSC Code",
-            "Last College Name", "Last College Roll No","U Dise No","Past Student Id","Exam month","Result", "Examination", "Marks Obtained", "ATKT",
-            "Installments", "Installment Gap", "Total Fees", "Paid Amount", "Balance Amount","Payment Type", "Installment Amount",
+            "Last College Name", "Last College Roll No", "U Dise No", "Past Student Id", "Exam month", "Result", "Examination", "Marks Obtained", "ATKT",
+            "Installments", "Installment Gap", "Total Fees", "Paid Amount", "Balance Amount", "Payment Type", "Installment Amount",
             "Due Date",
             "Stream", "Substream", "Subjects",
-            "BioFocal Stream","bioFocal Subjects"
+            "BioFocal Stream", "BioFocal Subjects"
         };
     
         // Write header cells
@@ -455,149 +455,150 @@ public class ExcelExporter {
         // Adding one row of dummy data manually
         Row dataRow = sheet.createRow(1);
     
-        Cell cell1 = dataRow.createCell(0);
+        // Assigning dummy values with proper numbering
+        Cell cell1 = dataRow.createCell(0);  // First Name
         cell1.setCellValue("john");
     
-        Cell cell2 = dataRow.createCell(1);
+        Cell cell2 = dataRow.createCell(1);  // Father Name
         cell2.setCellValue("marcus");
     
-        Cell cell3 = dataRow.createCell(2);
+        Cell cell3 = dataRow.createCell(2);  // Mother Name
         cell3.setCellValue("marry");
     
-        Cell cell4 = dataRow.createCell(3);
+        Cell cell4 = dataRow.createCell(3);  // Surname
         cell4.setCellValue("doe");
     
-        Cell cell5 = dataRow.createCell(4);
+        Cell cell5 = dataRow.createCell(4);  // Email
         cell5.setCellValue("john@gmail.com");
     
-        Cell cell6 = dataRow.createCell(5);
+        Cell cell6 = dataRow.createCell(5);  // Phone No
         cell6.setCellValue(1234567890);
     
-        Cell cell7 = dataRow.createCell(6);
+        Cell cell7 = dataRow.createCell(6);  // DOB
         cell7.setCellValue("2025-01-22");
     
-        Cell cell8 = dataRow.createCell(7);
+        Cell cell8 = dataRow.createCell(7);  // Adhar No
         cell8.setCellValue(324234234);
     
-        Cell cell9 = dataRow.createCell(8);
+        Cell cell9 = dataRow.createCell(8);  // Blood Group
         cell9.setCellValue("B+");
     
-        Cell cell11 = dataRow.createCell(10);
-        cell11.setCellValue("PASS");
+        Cell cell10 = dataRow.createCell(9);  // Result
+        cell10.setCellValue("PASS");
     
-        Cell cell12 = dataRow.createCell(11);
-        cell12.setCellValue(123);
+        Cell cell11 = dataRow.createCell(10);  // Roll No
+        cell11.setCellValue(123);
     
-        Cell cell14 = dataRow.createCell(13);
-        cell14.setCellValue("male");
+        Cell cell12 = dataRow.createCell(11);  // Gender
+        cell12.setCellValue("male");
     
-        Cell cell15 = dataRow.createCell(14);
-        cell15.setCellValue("kunbi");
+        Cell cell13 = dataRow.createCell(12);  // Caste
+        cell13.setCellValue("kunbi");
     
-        Cell cell16 = dataRow.createCell(15);
-        cell16.setCellValue("OBC");
+        Cell cell14 = dataRow.createCell(13);  // Category
+        cell14.setCellValue("OBC");
     
-        Cell cell17 = dataRow.createCell(16);
-        cell17.setCellValue("EBC");
+        Cell cell15 = dataRow.createCell(14);  // Scholarship Category
+        cell15.setCellValue("EBC");
     
-        Cell cell18 = dataRow.createCell(17);
-        cell18.setCellValue("Mumbai");
+        Cell cell16 = dataRow.createCell(15);  // Local Address
+        cell16.setCellValue("Mumbai");
     
-        Cell cell19 = dataRow.createCell(18);
-        cell19.setCellValue("pune");
+        Cell cell17 = dataRow.createCell(16);  // Permanent Address
+        cell17.setCellValue("pune");
     
-        Cell cell20 = dataRow.createCell(19);
-        cell20.setCellValue("marcus");
+        Cell cell18 = dataRow.createCell(17);  // Guardian Name
+        cell18.setCellValue("marcus");
     
-        Cell cell21 = dataRow.createCell(20);
-        cell21.setCellValue("father");
+        Cell cell19 = dataRow.createCell(18);  // Guardian Relation
+        cell19.setCellValue("father");
     
-        Cell cell22 = dataRow.createCell(21);
-        cell22.setCellValue(245757877);
+        Cell cell20 = dataRow.createCell(19);  // Guardian Phone
+        cell20.setCellValue(245757877);
     
-        Cell cell23 = dataRow.createCell(22);
-        cell23.setCellValue("job");
+        Cell cell21 = dataRow.createCell(20);  // Guardian Occupation
+        cell21.setCellValue("job");
     
-        Cell cell24 = dataRow.createCell(23);
-        cell24.setCellValue(70000);
+        Cell cell22 = dataRow.createCell(21);  // Guardian Income
+        cell22.setCellValue(70000);
     
-        Cell cell25 = dataRow.createCell(24);
-        cell25.setCellValue("sbi");
+        Cell cell23 = dataRow.createCell(22);  // Bank Name
+        cell23.setCellValue("sbi");
     
-        Cell cell26 = dataRow.createCell(25);
-        cell26.setCellValue(12345678);
+        Cell cell24 = dataRow.createCell(23);  // Bank Account No
+        cell24.setCellValue(12345678);
     
-        Cell cell27 = dataRow.createCell(26);
-        cell27.setCellValue("wardhman");
+        Cell cell25 = dataRow.createCell(24);  // Bank Branch
+        cell25.setCellValue("wardhman");
     
-        Cell cell28 = dataRow.createCell(27);
-        cell28.setCellValue("CGFR6534");
+        Cell cell26 = dataRow.createCell(25);  // IFSC Code
+        cell26.setCellValue("CGFR6534");
     
-        Cell cell29 = dataRow.createCell(28);
-        cell29.setCellValue("xyz");
+        Cell cell27 = dataRow.createCell(26);  // Last College Name
+        cell27.setCellValue("xyz");
     
-        Cell cell30 = dataRow.createCell(29);
-        cell30.setCellValue(125);
+        Cell cell28 = dataRow.createCell(27);  // Last College Roll No
+        cell28.setCellValue(125);
     
-        Cell cell31 = dataRow.createCell(30);
-        cell31.setCellValue(222122);
+        Cell cell29 = dataRow.createCell(28);  // U Dise No
+        cell29.setCellValue(222122);
     
-        Cell cell32 = dataRow.createCell(31);
-        cell32.setCellValue(453453);
+        Cell cell30 = dataRow.createCell(29);  // Past Student Id
+        cell30.setCellValue(453453);
     
-        Cell cell33 = dataRow.createCell(32);
-        cell33.setCellValue("2025-06");
+        Cell cell31 = dataRow.createCell(30);  // Exam Month
+        cell31.setCellValue("2025-06");
     
-        Cell cell34 = dataRow.createCell(33);
-        cell34.setCellValue("FAIL");
+        Cell cell32 = dataRow.createCell(31);  // Result
+        cell32.setCellValue("FAIL");
     
-        Cell cell35 = dataRow.createCell(34);
-        cell35.setCellValue("cbsc");
+        Cell cell33 = dataRow.createCell(32);  // Examination
+        cell33.setCellValue("cbsc");
     
-        Cell cell36 = dataRow.createCell(35);
-        cell36.setCellValue(73);
+        Cell cell34 = dataRow.createCell(33);  // Marks Obtained
+        cell34.setCellValue(73);
     
-        Cell cell37 = dataRow.createCell(36);
-        cell37.setCellValue("No");
+        Cell cell35 = dataRow.createCell(34);  // ATKT
+        cell35.setCellValue("No");
     
-        Cell cell38 = dataRow.createCell(37);
+        Cell cell36 = dataRow.createCell(35);  // Installments
+        cell36.setCellValue(0);
+    
+        Cell cell37 = dataRow.createCell(36);  // Installment Gap
+        cell37.setCellValue(0);
+    
+        Cell cell38 = dataRow.createCell(37);  // Total Fees
         cell38.setCellValue(0);
     
-        Cell cell39 = dataRow.createCell(38);
+        Cell cell39 = dataRow.createCell(38);  // Paid Amount
         cell39.setCellValue(0);
     
-        Cell cell40 = dataRow.createCell(39);
+        Cell cell40 = dataRow.createCell(39);  // Balance Amount
         cell40.setCellValue(0);
     
-        Cell cell41 = dataRow.createCell(40);
-        cell41.setCellValue(0);
+        Cell cell41 = dataRow.createCell(40);  // Payment Type
+        cell41.setCellValue("cash");
     
-        Cell cell42 = dataRow.createCell(41);
+        Cell cell42 = dataRow.createCell(41);  // Installment Amount
         cell42.setCellValue(0);
     
-        Cell cell43 = dataRow.createCell(42);
-        cell43.setCellValue("cash");
+        Cell cell43 = dataRow.createCell(42);  // Due Date
+        cell43.setCellValue("2025-01-22");
     
-        Cell cell44 = dataRow.createCell(43);
-        cell44.setCellValue(0);
+        Cell cell44 = dataRow.createCell(43);  // Stream
+        cell44.setCellValue("Science");
     
-        Cell cell45 = dataRow.createCell(44);
-        cell45.setCellValue("2025-01-22");
+        Cell cell45 = dataRow.createCell(44);  // Substream
+        cell45.setCellValue("General Science");
     
-        Cell cell46 = dataRow.createCell(45);
-        cell46.setCellValue("Science");
+        Cell cell46 = dataRow.createCell(45);  // Subjects
+        cell46.setCellValue("English (English)\nPhysics (English)\nSanskrit (English)\nChemistry (English)\nBiology (English)");
     
-        Cell cell47 = dataRow.createCell(46);
-        cell47.setCellValue("General Science");
+        Cell cell47 = dataRow.createCell(46);  // BioFocal Stream
+        cell47.setCellValue("Electronics");
     
-        Cell cell48 = dataRow.createCell(47);
-        cell48.setCellValue("English (English)\nPhysics (English)\nSanskrit (English)\nChemistry (English)\nBiology (English)");
-    
-        Cell cell49 = dataRow.createCell(48);
-        cell49.setCellValue("Electronics");
-    
-        Cell cell50 = dataRow.createCell(49);
-        cell50.setCellValue("Maths (English)\nChemistry (English)\nPhysics (English)\nEnglish\nMayur(Marathi)");
+        Cell cell48 = dataRow.createCell(47);  // BioFocal Subjects
+        cell48.setCellValue("Maths (English)\nChemistry (English)\nPhysics (English)\nEnglish\nMayur(Marathi)");
     
         // Auto-size columns
         for (int i = 0; i < headers.length; i++) {
@@ -611,6 +612,7 @@ public class ExcelExporter {
     
         return outputStream.toByteArray();
     }
+    
     
 }
 
