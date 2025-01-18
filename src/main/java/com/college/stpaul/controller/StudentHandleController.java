@@ -86,6 +86,7 @@ public class StudentHandleController {
             response.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             response.setHttpStatusCode(500);
             response.setMessage("something went wrong !");
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
                                 
