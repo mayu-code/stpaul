@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.xmlbeans.impl.config.UserTypeImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -119,7 +118,6 @@ public class StudentHandleController {
 
             receipt.setPaymentDetails(paymentDetails);
             this.receiptServiceImpl.addReceipt(receipt);
-
 
             response.setHttpStatus(HttpStatus.OK);
             response.setHttpStatusCode(200);

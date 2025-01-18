@@ -434,7 +434,7 @@ public class ExcelExporter {
         Row headerRow = sheet.createRow(0);
         String[] headers = {
             "First Name", "Father Name", "Mother Name", "Surname", "Email", "Phone No",
-            "DOB","Adhar No","Blood group","Current Class","Result","Roll No","Session",
+            "DOB","Adhar No","Blood group","Result","Roll No",
             "Gender", "Caste", "Category", "Scholarship Category",
             "Local Address", "Permanent Address",
             "Guardian Name", "Guardian Relation", "Guardian Phone", "Guardian Occupation", "Guardian Income",
@@ -482,17 +482,11 @@ public class ExcelExporter {
         Cell cell9 = dataRow.createCell(8);
         cell9.setCellValue("B+");
     
-        Cell cell10 = dataRow.createCell(9);
-        cell10.setCellValue("11th");
-    
         Cell cell11 = dataRow.createCell(10);
-        cell11.setCellValue("ON_GOING");
+        cell11.setCellValue("PASS");
     
         Cell cell12 = dataRow.createCell(11);
         cell12.setCellValue(123);
-    
-        Cell cell13 = dataRow.createCell(12);
-        cell13.setCellValue("2025-2026");
     
         Cell cell14 = dataRow.createCell(13);
         cell14.setCellValue("male");

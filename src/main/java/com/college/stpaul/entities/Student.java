@@ -40,6 +40,7 @@ public class Student {
     private String adharNo;
     private String bloodGroup;
     private String currentClass;
+    private String section;
     private Result result=Result.ON_GOING;
     private String rollNo;
     private String session;
