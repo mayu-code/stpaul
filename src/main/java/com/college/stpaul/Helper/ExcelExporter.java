@@ -319,13 +319,13 @@ public class ExcelExporter {
             student.setMotherName(row.getCell(2) != null ? row.getCell(2).getStringCellValue() : null);
             student.setSurname(row.getCell(3) != null ? row.getCell(3).getStringCellValue() : null);
             student.setEmail(row.getCell(4) != null ? row.getCell(4).getStringCellValue() : null);
-            student.setPhoneNo(row.getCell(5) != null ? String.valueOf(row.getCell(5).getNumericCellValue()) : null);
+            student.setPhoneNo(row.getCell(5) != null ? String.valueOf((long)row.getCell(5).getNumericCellValue()) : null);
             student.setDob(row.getCell(6) != null ? row.getCell(6).getStringCellValue() : null);
-            student.setAdharNo(row.getCell(7) != null ? String.valueOf(row.getCell(7).getNumericCellValue()) : null);
+            student.setAdharNo(row.getCell(7) != null ? String.valueOf((long)row.getCell(7).getNumericCellValue()) : null);
             student.setBloodGroup(row.getCell(8) != null ? row.getCell(8).getStringCellValue() : null);
             student.setCurrentClass(row.getCell(9) != null ? row.getCell(9).getStringCellValue() : null);
             student.setResult(row.getCell(10) != null ? Result.valueOf(row.getCell(10).getStringCellValue().toUpperCase()) : null);
-            student.setRollNo(row.getCell(11) != null ? String.valueOf(row.getCell(11).getNumericCellValue()) : null);
+            student.setRollNo(row.getCell(11) != null ? String.valueOf((long)row.getCell(11).getNumericCellValue()) : null);
             student.setSession(row.getCell(12) != null ? row.getCell(12).getStringCellValue() : null);
             student.setGender(row.getCell(13) != null ? row.getCell(13).getStringCellValue() : null);
             student.setCaste(row.getCell(14) != null ? row.getCell(14).getStringCellValue() : null);
@@ -341,16 +341,16 @@ public class ExcelExporter {
             GuardianInfo guardianInfo = new GuardianInfo();
             guardianInfo.setGuardianName(row.getCell(19) != null ? row.getCell(19).getStringCellValue() : null);
             guardianInfo.setGuardianRelation(row.getCell(20) != null ? row.getCell(20).getStringCellValue() : null);
-            guardianInfo.setGuardianPhoneNo(row.getCell(21) != null ? String.valueOf(row.getCell(21).getNumericCellValue()) : null);
+            guardianInfo.setGuardianPhoneNo(row.getCell(21) != null ? String.valueOf((long)row.getCell(21).getNumericCellValue()) : null);
             guardianInfo.setGuardianOccupation(row.getCell(22) != null ? row.getCell(22).getStringCellValue() : null);
-            guardianInfo.setGuardianIncome(row.getCell(23) != null ? String.valueOf(row.getCell(23).getNumericCellValue()) : null);
+            guardianInfo.setGuardianIncome(row.getCell(23) != null ? String.valueOf((long)row.getCell(23).getNumericCellValue()) : null);
             guardianInfo.setStudent(student);
             this.guardianInfoServiceImpl.addGuardianInfo(guardianInfo);
     
             // Map Bank Details
             BankDetails  bankDetails= new BankDetails();
             bankDetails.setBankName(row.getCell(24) != null ? row.getCell(24).getStringCellValue() : null);
-            bankDetails.setAccountNo(row.getCell(25) != null ? String.valueOf(row.getCell(25).getNumericCellValue()) : null);
+            bankDetails.setAccountNo(row.getCell(25) != null ? String.valueOf((long)row.getCell(25).getNumericCellValue()) : null);
             bankDetails.setBankBranch(row.getCell(26) != null ? row.getCell(26).getStringCellValue() : null);
             bankDetails.setIfscCode(row.getCell(27) != null ? row.getCell(27).getStringCellValue() : null);
             bankDetails.setStudent(student);
@@ -359,9 +359,9 @@ public class ExcelExporter {
             // Map Last College Info
             LastCollege lastCollege = new LastCollege();
             lastCollege.setCollegeName(row.getCell(28) != null ? row.getCell(28).getStringCellValue() : null);
-            lastCollege.setRollNo(row.getCell(29) != null ? String.valueOf(row.getCell(29).getNumericCellValue()) : null);
-            lastCollege.setUdiseNo(row.getCell(30) != null ?String.valueOf(row.getCell(30).getNumericCellValue()) : null);
-            lastCollege.setLastStudentId(row.getCell(31) != null ? String.valueOf(row.getCell(31).getNumericCellValue()) : null);
+            lastCollege.setRollNo(row.getCell(29) != null ? String.valueOf((long)row.getCell(29).getNumericCellValue()) : null);
+            lastCollege.setUdiseNo(row.getCell(30) != null ?String.valueOf((long)row.getCell(30).getNumericCellValue()) : null);
+            lastCollege.setLastStudentId(row.getCell(31) != null ? String.valueOf((long)row.getCell(31).getNumericCellValue()) : null);
             lastCollege.setExamMonth(row.getCell(32) != null ? row.getCell(32).getStringCellValue() : null);
             lastCollege.setResult(row.getCell(33) != null ? Result.valueOf(row.getCell(33).getStringCellValue().toUpperCase()) : null);
             lastCollege.setExamination(row.getCell(34) != null ? row.getCell(34).getStringCellValue() : null);
