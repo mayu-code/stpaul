@@ -227,60 +227,60 @@ public class ExcelExporter {
         return outputStream.toByteArray();
     }
 
-    public byte[] exportSubjectsToExcel(List<Subjects> subjectsList) throws IOException {
-        Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Subjects");
+    // public byte[] exportSubjectsToExcel(List<Subjects> subjectsList) throws IOException {
+    //     Workbook workbook = new XSSFWorkbook();
+    //     Sheet sheet = workbook.createSheet("Subjects");
 
-        // Header Row
-        Row headerRow = sheet.createRow(0);
-        String[] headers = {"Stream", "SubStream", "Subject Name", "Medium"};
-        for (int i = 0; i < headers.length; i++) {
-            Cell cell = headerRow.createCell(i);
-            cell.setCellValue(headers[i]);
-        }
+    //     // Header Row
+    //     Row headerRow = sheet.createRow(0);
+    //     String[] headers = {"Stream", "SubStream", "Subject Name", "Medium"};
+    //     for (int i = 0; i < headers.length; i++) {
+    //         Cell cell = headerRow.createCell(i);
+    //         cell.setCellValue(headers[i]);
+    //     }
 
-        int rowIndex = 1;
+    //     int rowIndex = 1;
 
-        for (Subjects subjects : subjectsList) {
-            String stream = subjects.getStream();
-            String subStream = subjects.getSubStream();
-            List<Subject> subjectList = subjects.getSubject();
+    //     for (Subjects subjects : subjectsList) {
+    //         String stream = subjects.getStream();
+    //         String subStream = subjects.getSubStream();
+    //         List<Subject> subjectList = subjects.getSubject();
 
-            for (int i = 0; i < subjectList.size(); i++) {
-                Subject subject = subjectList.get(i);
-                Row row = sheet.createRow(rowIndex++);
+    //         for (int i = 0; i < subjectList.size(); i++) {
+    //             Subject subject = subjectList.get(i);
+    //             Row row = sheet.createRow(rowIndex++);
 
-                if (i == 0) {
-                    // Merge cells for "Stream"
-                    sheet.addMergedRegion(new CellRangeAddress(rowIndex - 1, rowIndex + subjectList.size() - 2, 0, 0));
-                    Cell streamCell = row.createCell(0);
-                    streamCell.setCellValue(stream);
+    //             if (i == 0) {
+    //                 // Merge cells for "Stream"
+    //                 sheet.addMergedRegion(new CellRangeAddress(rowIndex - 1, rowIndex + subjectList.size() - 2, 0, 0));
+    //                 Cell streamCell = row.createCell(0);
+    //                 streamCell.setCellValue(stream);
 
-                    // Merge cells for "SubStream"
-                    sheet.addMergedRegion(new CellRangeAddress(rowIndex - 1, rowIndex + subjectList.size() - 2, 1, 1));
-                    Cell subStreamCell = row.createCell(1);
-                    subStreamCell.setCellValue(subStream);
-                }
+    //                 // Merge cells for "SubStream"
+    //                 sheet.addMergedRegion(new CellRangeAddress(rowIndex - 1, rowIndex + subjectList.size() - 2, 1, 1));
+    //                 Cell subStreamCell = row.createCell(1);
+    //                 subStreamCell.setCellValue(subStream);
+    //             }
 
 
-                // Fill "Subject Name" and "Medium"
-                row.createCell(2).setCellValue(subject.getName());
-                row.createCell(3).setCellValue(subject.getMedium());
-            }
-        }
+    //             // Fill "Subject Name" and "Medium"
+    //             row.createCell(2).setCellValue(subject.getName());
+    //             row.createCell(3).setCellValue(subject.getMedium());
+    //         }
+    //     }
 
-        // Auto-size columns
-        for (int i = 0; i < headers.length; i++) {
-            sheet.autoSizeColumn(i);
-        }
+    //     // Auto-size columns
+    //     for (int i = 0; i < headers.length; i++) {
+    //         sheet.autoSizeColumn(i);
+    //     }
 
-        // Write data to a byte array
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        workbook.write(outputStream);
-        workbook.close();
+    //     // Write data to a byte array
+    //     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    //     workbook.write(outputStream);
+    //     workbook.close();
 
-        return outputStream.toByteArray();
-    }
+    //     return outputStream.toByteArray();
+    // }
 
 
 
@@ -313,81 +313,86 @@ public class ExcelExporter {
             student.setMotherName(row.getCell(2) != null ? row.getCell(2).getStringCellValue() : null);
             student.setSurname(row.getCell(3) != null ? row.getCell(3).getStringCellValue() : null);
             student.setEmail(row.getCell(4) != null ? row.getCell(4).getStringCellValue() : null);
-            student.setPhoneNo(row.getCell(5) != null ? String.valueOf((long)row.getCell(5).getNumericCellValue()) : null);
+            student.setPhoneNo(row.getCell(5) != null ? String.valueOf((long) row.getCell(5).getNumericCellValue()) : null);
             student.setDob(row.getCell(6) != null ? row.getCell(6).getStringCellValue() : null);
-            student.setAdharNo(row.getCell(7) != null ? String.valueOf((long)row.getCell(7).getNumericCellValue()) : null);
+            student.setAdharNo(row.getCell(7) != null ? String.valueOf((long) row.getCell(7).getNumericCellValue()) : null);
             student.setBloodGroup(row.getCell(8) != null ? row.getCell(8).getStringCellValue() : null);
-            student.setCurrentClass(row.getCell(9) != null ? row.getCell(9).getStringCellValue() : null);
-            student.setResult(row.getCell(10) != null ? Result.valueOf(row.getCell(10).getStringCellValue().toUpperCase()) : null);
-            student.setRollNo(row.getCell(11) != null ? String.valueOf((long)row.getCell(11).getNumericCellValue()) : null);
-            student.setSession(row.getCell(12) != null ? row.getCell(12).getStringCellValue() : null);
-            student.setGender(row.getCell(13) != null ? row.getCell(13).getStringCellValue() : null);
-            student.setCaste(row.getCell(14) != null ? row.getCell(14).getStringCellValue() : null);
-            student.setCategory(row.getCell(15) != null ? row.getCell(15).getStringCellValue() : null);
-            student.setScholarshipCategory(row.getCell(16) != null ? row.getCell(16).getStringCellValue() : null);
-            student.setLocalAddress(row.getCell(17) != null ? row.getCell(17).getStringCellValue() : null);
-            student.setPermanentAddress(row.getCell(18) != null ? row.getCell(18).getStringCellValue() : null);
+            student.setResult(row.getCell(9) != null ? Result.valueOf(row.getCell(9).getStringCellValue().toUpperCase()) : null);
+            student.setRollNo(row.getCell(10) != null ? String.valueOf((long) row.getCell(10).getNumericCellValue()) : null);
+            student.setGender(row.getCell(11) != null ? row.getCell(11).getStringCellValue() : null);
+            student.setCaste(row.getCell(12) != null ? row.getCell(12).getStringCellValue() : null);
+            student.setCategory(row.getCell(13) != null ? row.getCell(13).getStringCellValue() : null);
+            student.setScholarshipCategory(row.getCell(14) != null ? row.getCell(14).getStringCellValue() : null);
+            student.setLocalAddress(row.getCell(15) != null ? row.getCell(15).getStringCellValue() : null);
+            student.setPermanentAddress(row.getCell(16) != null ? row.getCell(16).getStringCellValue() : null);
             student.setAdmissionForm(admission);
             student = this.studentServiceImpl.addStudent(student);
+            
 
     
             // Map Guardian Info
+            // Map Guardian Information
             GuardianInfo guardianInfo = new GuardianInfo();
-            guardianInfo.setGuardianName(row.getCell(19) != null ? row.getCell(19).getStringCellValue() : null);
-            guardianInfo.setGuardianRelation(row.getCell(20) != null ? row.getCell(20).getStringCellValue() : null);
-            guardianInfo.setGuardianPhoneNo(row.getCell(21) != null ? String.valueOf((long)row.getCell(21).getNumericCellValue()) : null);
-            guardianInfo.setGuardianOccupation(row.getCell(22) != null ? row.getCell(22).getStringCellValue() : null);
-            guardianInfo.setGuardianIncome(row.getCell(23) != null ? String.valueOf((long)row.getCell(23).getNumericCellValue()) : null);
+            guardianInfo.setGuardianName(row.getCell(17) != null ? row.getCell(17).getStringCellValue() : null);
+            guardianInfo.setGuardianRelation(row.getCell(18) != null ? row.getCell(18).getStringCellValue() : null);
+            guardianInfo.setGuardianPhoneNo(row.getCell(19) != null ? String.valueOf((long) row.getCell(19).getNumericCellValue()) : null);
+            guardianInfo.setGuardianOccupation(row.getCell(20) != null ? row.getCell(20).getStringCellValue() : null);
+            guardianInfo.setGuardianIncome(row.getCell(21) != null ? String.valueOf((long) row.getCell(21).getNumericCellValue()) : null);
             guardianInfo.setStudent(student);
             this.guardianInfoServiceImpl.addGuardianInfo(guardianInfo);
-    
+
             // Map Bank Details
-            BankDetails  bankDetails= new BankDetails();
-            bankDetails.setBankName(row.getCell(24) != null ? row.getCell(24).getStringCellValue() : null);
-            bankDetails.setAccountNo(row.getCell(25) != null ? String.valueOf((long)row.getCell(25).getNumericCellValue()) : null);
-            bankDetails.setBankBranch(row.getCell(26) != null ? row.getCell(26).getStringCellValue() : null);
-            bankDetails.setIfscCode(row.getCell(27) != null ? row.getCell(27).getStringCellValue() : null);
+            BankDetails bankDetails = new BankDetails();
+            bankDetails.setBankName(row.getCell(22) != null ? row.getCell(22).getStringCellValue() : null);
+            bankDetails.setAccountNo(row.getCell(23) != null ? String.valueOf((long) row.getCell(23).getNumericCellValue()) : null);
+            bankDetails.setBankBranch(row.getCell(24) != null ? row.getCell(24).getStringCellValue() : null);
+            bankDetails.setIfscCode(row.getCell(25) != null ? row.getCell(25).getStringCellValue() : null);
             bankDetails.setStudent(student);
             this.bankDetailsServiceImpl.addBankDetails(bankDetails);
+
     
             // Map Last College Info
+           // Map Last College Details
             LastCollege lastCollege = new LastCollege();
-            lastCollege.setCollegeName(row.getCell(28) != null ? row.getCell(28).getStringCellValue() : null);
-            lastCollege.setRollNo(row.getCell(29) != null ? String.valueOf((long)row.getCell(29).getNumericCellValue()) : null);
-            lastCollege.setUdiseNo(row.getCell(30) != null ?String.valueOf((long)row.getCell(30).getNumericCellValue()) : null);
-            lastCollege.setLastStudentId(row.getCell(31) != null ? String.valueOf((long)row.getCell(31).getNumericCellValue()) : null);
-            lastCollege.setExamMonth(row.getCell(32) != null ? row.getCell(32).getStringCellValue() : null);
-            lastCollege.setResult(row.getCell(33) != null ? Result.valueOf(row.getCell(33).getStringCellValue().toUpperCase()) : null);
-            lastCollege.setExamination(row.getCell(34) != null ? row.getCell(34).getStringCellValue() : null);
-            lastCollege.setMarksObtained(row.getCell(35) != null ? (int) row.getCell(35).getNumericCellValue() : 0);
-            if(row.getCell(36) != null){
-                if(row.getCell(36).getStringCellValue().equalsIgnoreCase("no")){
+            lastCollege.setCollegeName(row.getCell(26) != null ? row.getCell(26).getStringCellValue() : null);
+            lastCollege.setRollNo(row.getCell(27) != null ? String.valueOf((long) row.getCell(27).getNumericCellValue()) : null);
+            lastCollege.setUdiseNo(row.getCell(28) != null ? String.valueOf((long) row.getCell(28).getNumericCellValue()) : null);
+            lastCollege.setLastStudentId(row.getCell(29) != null ? String.valueOf((long) row.getCell(29).getNumericCellValue()) : null);
+            lastCollege.setExamMonth(row.getCell(30) != null ? row.getCell(30).getStringCellValue() : null);
+            lastCollege.setResult(row.getCell(31) != null ? Result.valueOf(row.getCell(31).getStringCellValue().toUpperCase()) : null);
+            lastCollege.setExamination(row.getCell(32) != null ? row.getCell(32).getStringCellValue() : null);
+            lastCollege.setMarksObtained(row.getCell(33) != null ? (int) row.getCell(33).getNumericCellValue() : 0);
+
+            if(row.getCell(34) != null) {
+                if(row.getCell(34).getStringCellValue().equalsIgnoreCase("no")){
                     lastCollege.setAtkt(false);
-                }else if(row.getCell(36).getStringCellValue().equalsIgnoreCase("yes")){
+                } else if(row.getCell(34).getStringCellValue().equalsIgnoreCase("yes")){
                     lastCollege.setAtkt(true);
                 }
             }
+
             lastCollege.setStudent(student);
             this.lastCollegeServiceImpl.addLastCollege(lastCollege);
-    
+
             // Map Payment Details
             PaymentDetails paymentDetails = new PaymentDetails();
-            paymentDetails.setInstallments(row.getCell(37) != null ? (int) row.getCell(37).getNumericCellValue() : 0);
-            paymentDetails.setInstallmentGap(row.getCell(38) != null ? (int) row.getCell(38).getNumericCellValue() : 0);
-            paymentDetails.setTotalFees(row.getCell(39) != null ? (Double) row.getCell(39).getNumericCellValue() : 0.0);
-            paymentDetails.setPaidAmount(row.getCell(40) != null ? (Double) row.getCell(40).getNumericCellValue() : 0.0);
-            paymentDetails.setBalanceAmount(row.getCell(41) != null ? (Double) row.getCell(41).getNumericCellValue() : 0.0);
-            paymentDetails.setPaymentType(row.getCell(42) != null ? PaymentType.valueOf(row.getCell(42).getStringCellValue().toUpperCase()) : null);
-            paymentDetails.setInstallmentAmount(row.getCell(43) != null ? (Double) row.getCell(43).getNumericCellValue() : 0.0);
-            paymentDetails.setDueDate(row.getCell(44) != null ? row.getCell(44).getStringCellValue() : null);
+            paymentDetails.setInstallments(row.getCell(35) != null ? (int) row.getCell(35).getNumericCellValue() : 0);
+            paymentDetails.setInstallmentGap(row.getCell(36) != null ? (int) row.getCell(36).getNumericCellValue() : 0);
+            paymentDetails.setTotalFees(row.getCell(37) != null ? (Double) row.getCell(37).getNumericCellValue() : 0.0);
+            paymentDetails.setPaidAmount(row.getCell(38) != null ? (Double) row.getCell(38).getNumericCellValue() : 0.0);
+            paymentDetails.setBalanceAmount(row.getCell(39) != null ? (Double) row.getCell(39).getNumericCellValue() : 0.0);
+            paymentDetails.setPaymentType(row.getCell(40) != null ? PaymentType.valueOf(row.getCell(40).getStringCellValue().toUpperCase()) : null);
+            paymentDetails.setInstallmentAmount(row.getCell(41) != null ? (Double) row.getCell(41).getNumericCellValue() : 0.0);
+            paymentDetails.setDueDate(row.getCell(42) != null ? row.getCell(42).getStringCellValue() : null);
             paymentDetails.setStudent(student);
             this.paymentDetailServiceImpl.addPaymentDetails(paymentDetails);
+
     
             // Map Subjects
             Subjects subjects = new Subjects();
-            subjects.setStream(row.getCell(45) != null ? row.getCell(45).getStringCellValue() : null);
-            subjects.setSubStream(row.getCell(46) != null ? row.getCell(46).getStringCellValue() : null);
-            String[] subjectDetails = row.getCell(47) != null ? row.getCell(47).getStringCellValue().split("\\n") : new String[0];
+            subjects.setStream(row.getCell(43) != null ? row.getCell(43).getStringCellValue() : null);
+            subjects.setSubStream(row.getCell(44) != null ? row.getCell(44).getStringCellValue() : null);
+            String[] subjectDetails = row.getCell(45) != null ? row.getCell(45).getStringCellValue().split("\\n") : new String[0];
             subjects.setStudent(student);
             subjects.setSubject(null);
             subjects = this.subjectsServiceImpl.addSubjects(subjects);
@@ -404,8 +409,8 @@ public class ExcelExporter {
     
             // Map BioFocal Subjects
             BioFocalSubject bioFocalSubject = new BioFocalSubject();
-            bioFocalSubject.setStream(row.getCell(48) != null ? row.getCell(48).getStringCellValue() : null);
-            String[] bioSubjectDetails = row.getCell(49) != null ? row.getCell(49).getStringCellValue().split("\\n") : new String[0];
+            bioFocalSubject.setStream(row.getCell(46) != null ? row.getCell(46).getStringCellValue() : null);
+            String[] bioSubjectDetails = row.getCell(47) != null ? row.getCell(47).getStringCellValue().split("\\n") : new String[0];
             bioFocalSubject.setStudent(student);
             bioFocalSubject.setSubject(null);
             bioFocalSubject = this.bioFocalSubjectServiceImpl.addBioFocalSubject(bioFocalSubject);
