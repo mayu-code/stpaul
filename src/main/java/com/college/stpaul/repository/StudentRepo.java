@@ -27,6 +27,20 @@ public interface StudentRepo extends JpaRepository<Student,Long>{
         @Param("session") String session,
         Pageable pageable);
 
+      
+        @Query("""
+          SELECT s 
+          FROM Student s 
+          WHERE (:result IS NULL OR s.result = :result)
+            AND (:currentClass IS NULL OR s.currentClass = :currentClass)
+            AND (:session IS NULL OR session=:session)
+          """)
+          List<Student> exportStudents(
+              @Param("result") Result result,
+              @Param("currentClass") String currentClass,
+              @Param("session") String session
+            );
+
 
     @Query("SELECT s FROM Student s WHERE s.result=:result")
     List<Student> getFailedStudents(Result result);

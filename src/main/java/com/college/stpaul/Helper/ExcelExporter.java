@@ -22,18 +22,15 @@ import com.college.stpaul.entities.User;
 import com.college.stpaul.services.serviceImpl.AdmissionFormImpl;
 import com.college.stpaul.services.serviceImpl.BankDetailsServiceImpl;
 import com.college.stpaul.services.serviceImpl.BioFocalSubjectServiceImpl;
-import com.college.stpaul.services.serviceImpl.DocumentsServiceImpl;
 import com.college.stpaul.services.serviceImpl.GuardianInfoServiceImpl;
 import com.college.stpaul.services.serviceImpl.LastCollegeServiceImpl;
 import com.college.stpaul.services.serviceImpl.PaymentDetailServiceImpl;
 import com.college.stpaul.services.serviceImpl.StudentServiceImpl;
 import com.college.stpaul.services.serviceImpl.SubjectServiceImpl;
 import com.college.stpaul.services.serviceImpl.SubjectsServiceImpl;
-import com.college.stpaul.services.serviceImpl.UserServiceImpl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -96,10 +93,6 @@ public class ExcelExporter {
             cell.setCellValue(headers[i]);
         }
 
-        // Data Rows
-
-
-
         int rowIndex = 1;
         for (Student student : students) {
             Row row = sheet.createRow(rowIndex++);
@@ -161,15 +154,12 @@ public class ExcelExporter {
             if (lastCollege != null && lastCollege.getRollNo() != null) {
                 row.createCell(30).setCellValue(Long.parseLong(lastCollege.getRollNo()));
             }
-            
             if (lastCollege != null && lastCollege.getUdiseNo() != null) {
                 row.createCell(31).setCellValue(Long.parseLong(lastCollege.getUdiseNo()));
-            }
-            
+            } 
             if (lastCollege != null && lastCollege.getLastStudentId() != null) {
                 row.createCell(32).setCellValue(Long.parseLong(lastCollege.getLastStudentId()));
             }
-            
             row.createCell(33).setCellValue(lastCollege != null ? lastCollege.getExamMonth() : "N/A");
             row.createCell(34).setCellValue(lastCollege != null ? lastCollege.getResult().toString() : "N/A");
             row.createCell(35).setCellValue(lastCollege != null ? lastCollege.getExamination() : "N/A");
@@ -184,14 +174,12 @@ public class ExcelExporter {
 
             // Payment Info
             PaymentDetails paymentDetails = student.getPaymentDetails();
-            // id 
             row.createCell(38).setCellValue(paymentDetails != null ? paymentDetails.getInstallments() : 0);
             row.createCell(39).setCellValue(paymentDetails != null ? paymentDetails.getInstallmentGap() : 0);
             row.createCell(40).setCellValue(paymentDetails != null ? paymentDetails.getTotalFees() : 0.0);
             row.createCell(41).setCellValue(paymentDetails != null ? paymentDetails.getPaidAmount() : 0.0);
             row.createCell(42).setCellValue(paymentDetails != null ? paymentDetails.getBalanceAmount() : 0.0);
-            row.createCell(43).setCellValue(paymentDetails != null ? paymentDetails.getPaymentType().toString() : "N/A");
-            
+            row.createCell(43).setCellValue(paymentDetails != null ? paymentDetails.getPaymentType().toString() : "N/A"); 
             row.createCell(44).setCellValue(paymentDetails != null ? paymentDetails.getInstallmentAmount() : 0.0);
             row.createCell(45).setCellValue(paymentDetails != null ? paymentDetails.getDueDate() : "N/A");
 
@@ -629,8 +617,6 @@ public class ExcelExporter {
     
         return outputStream.toByteArray();
     }
-    
-    
     
 }
 

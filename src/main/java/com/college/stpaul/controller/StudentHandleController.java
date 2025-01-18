@@ -74,7 +74,6 @@ public class StudentHandleController {
                                 ){
         
         DataResponse response = new DataResponse();
-        System.out.println(query);
         try{
 
             response.setData(this.studentServiceImpl.getStudentByField(query,result,currentClass,session,pageNo));
@@ -190,8 +189,13 @@ public class StudentHandleController {
     }
 
     @GetMapping("/students/excel")
-    public ResponseEntity<ByteArrayResource> downloadExcel() throws IOException {
-        List<Student> students = this.studentServiceImpl.getStudentByField(null, null, null, null, 0);
+    public ResponseEntity<ByteArrayResource> downloadExcel(
+                                    @RequestParam(required = false) Result result,
+                                    @RequestParam(required = false) String currentClass,
+                                    @RequestParam(required = false) String session
+                                    ) throws IOException {
+        
+        List<Student> students = this.studentServiceImpl.exportStudent(result, currentClass, session);
         byte[] excelData = excelExporter.exportToExcel(students);
 
         ByteArrayResource resource = new ByteArrayResource(excelData);

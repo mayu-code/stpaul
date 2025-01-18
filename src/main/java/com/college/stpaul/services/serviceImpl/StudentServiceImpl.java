@@ -54,5 +54,10 @@ public class StudentServiceImpl implements StudentService {
         return this.studentRepo.countAllStudents();
     }
 
+    @Override
+    public List<Student> exportStudent(Result result, String currentClass, String session) {
+        return this.studentRepo.exportStudents(result, currentClass, session);
+    }
+
     
 }
