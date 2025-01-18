@@ -26,7 +26,7 @@ public interface StudentRepo extends JpaRepository<Student,Long>{
         @Param("result") Result result,
         @Param("currentClass") String currentClass,
         @Param("session") String session,
-        @Param("session") String section,
+        @Param("section") String section,
         Pageable pageable);
 
       
@@ -42,7 +42,7 @@ public interface StudentRepo extends JpaRepository<Student,Long>{
               @Param("result") Result result,
               @Param("currentClass") String currentClass,
               @Param("session") String session,
-              @Param("session") String section
+              @Param("section") String section
             );
 
 
