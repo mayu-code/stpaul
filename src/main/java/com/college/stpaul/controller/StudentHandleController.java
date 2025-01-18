@@ -69,13 +69,14 @@ public class StudentHandleController {
                                 @RequestParam(required = false) Result result,
                                 @RequestParam(required = false) String currentClass,
                                 @RequestParam(required = false) String session,
+                                @RequestParam(required = false) String section,
                                 @PathVariable("pageNo")int pageNo
                                 ){
         
         DataResponse response = new DataResponse();
         try{
 
-            response.setData(this.studentServiceImpl.getStudentByField(query,result,currentClass,session,pageNo));
+            response.setData(this.studentServiceImpl.getStudentByField(query,result,currentClass,session,section,pageNo));
             response.setHttpStatus(HttpStatus.OK);
             response.setHttpStatusCode(200);
             response.setMessage("get Students Successfully !");
@@ -190,10 +191,11 @@ public class StudentHandleController {
     public ResponseEntity<ByteArrayResource> downloadExcel(
                                     @RequestParam(required = false) Result result,
                                     @RequestParam(required = false) String currentClass,
-                                    @RequestParam(required = false) String session
+                                    @RequestParam(required = false) String session,
+                                    @RequestParam(required = false) String section
                                     ) throws IOException {
         
-        List<Student> students = this.studentServiceImpl.exportStudent(result, currentClass, session);
+        List<Student> students = this.studentServiceImpl.exportStudent(result, currentClass, session,section);
         byte[] excelData = excelExporter.exportToExcel(students);
 
         ByteArrayResource resource = new ByteArrayResource(excelData);

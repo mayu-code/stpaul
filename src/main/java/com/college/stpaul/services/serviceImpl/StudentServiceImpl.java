@@ -33,9 +33,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getStudentByField(String query, Result result, String currentClass, String session,int pageNo) {
+    public List<Student> getStudentByField(String query, Result result, String currentClass, String session,String section,int pageNo) {
         Pageable pageable = PageRequest.of(pageNo, 10);
-        return this.studentRepo.searchStudents(query,result,currentClass,session,pageable);  
+        return this.studentRepo.searchStudents(query,result,currentClass,session,section,pageable);  
     }
 
     @Override
@@ -55,8 +55,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> exportStudent(Result result, String currentClass, String session) {
-        return this.studentRepo.exportStudents(result, currentClass, session);
+    public List<Student> exportStudent(Result result, String currentClass, String session,String section) {
+        return this.studentRepo.exportStudents(result, currentClass, session,section);
     }
 
     

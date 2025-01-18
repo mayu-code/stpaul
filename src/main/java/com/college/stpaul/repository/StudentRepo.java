@@ -19,12 +19,14 @@ public interface StudentRepo extends JpaRepository<Student,Long>{
       AND (:result IS NULL OR s.result = :result)
       AND (:currentClass IS NULL OR s.currentClass = :currentClass)
       AND (:session IS NULL OR session=:session)
+      AND (:section IS NULL OR section=:section)
     """)
     List<Student> searchStudents(
         @Param("query") String query,
         @Param("result") Result result,
         @Param("currentClass") String currentClass,
         @Param("session") String session,
+        @Param("session") String section,
         Pageable pageable);
 
       
@@ -34,11 +36,13 @@ public interface StudentRepo extends JpaRepository<Student,Long>{
           WHERE (:result IS NULL OR s.result = :result)
             AND (:currentClass IS NULL OR s.currentClass = :currentClass)
             AND (:session IS NULL OR session=:session)
+            AND (:section IS NULL OR section=:section)
           """)
           List<Student> exportStudents(
               @Param("result") Result result,
               @Param("currentClass") String currentClass,
-              @Param("session") String session
+              @Param("session") String session,
+              @Param("session") String section
             );
 
 
