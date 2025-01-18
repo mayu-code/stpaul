@@ -174,10 +174,12 @@ public class ExcelExporter {
             row.createCell(34).setCellValue(lastCollege != null ? lastCollege.getResult().toString() : "N/A");
             row.createCell(35).setCellValue(lastCollege != null ? lastCollege.getExamination() : "N/A");
             row.createCell(36).setCellValue(lastCollege != null ? lastCollege.getMarksObtained() : 0);
-            if(lastCollege.isAtkt()){
-                row.createCell(37).setCellValue("yes");
-            }else{
-                row.createCell(37).setCellValue("no");
+            if(lastCollege != null){
+                if(lastCollege.isAtkt()){
+                    row.createCell(37).setCellValue("yes");
+                }else{
+                    row.createCell(37).setCellValue("no");
+                }
             }
 
             // Payment Info
