@@ -1,6 +1,5 @@
 package com.college.stpaul.entities;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import com.college.stpaul.constants.Result;

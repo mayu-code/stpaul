@@ -1,6 +1,5 @@
 package com.college.stpaul.controller;
 
-
 import java.io.IOException;
 
 import java.time.LocalDateTime;
@@ -41,7 +40,6 @@ import com.college.stpaul.services.serviceImpl.ReceiptServiceImpl;
 import com.college.stpaul.services.serviceImpl.StudentHandlerServiceImpl;
 import com.college.stpaul.services.serviceImpl.StudentServiceImpl;
 import com.college.stpaul.services.serviceImpl.UserServiceImpl;
-import com.college.stpaul.services.serviceInterface.StudentHandelerService;
 
 @RestController
 @RequestMapping("/adminuser")
@@ -280,6 +278,39 @@ public class StudentHandleController {
             response.setMessage("promot Students successfully !");
             return ResponseEntity.of(Optional.of(response));
 
+        }catch(Exception e){
+            response.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setHttpStatusCode(500);
+            response.setMessage(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @PostMapping("/updateStudent")
+    public ResponseEntity<SuccessResponse> updateStudent(@RequestBody Student student){
+        SuccessResponse response = new SuccessResponse();
+        Student student2 = this.studentServiceImpl.getStudentById(student.getId());
+        try{
+            student2.setFirstName(student.getFirstName());
+            student2.setFatherName(student.getFatherName());
+            student2.setMotherName(student.getMotherName());
+            student2.setSurname(student.getSurname());
+            student2.setDob(student.getDob());
+            student2.setGender(student.getGender());
+            student2.setEmail(student.getEmail());
+            student2.setPhoneNo(student.getPhoneNo());
+            student2.setBloodGroup(student.getBloodGroup());
+            student2.setCaste(student.getCaste());
+            student2.setCategory(student.getCategory());
+            student2.setScholarshipCategory(student.getScholarshipCategory());
+            student2.setLocalAddress(student.getLocalAddress());
+            student2.setPermanentAddress(student.getPermanentAddress());
+            
+            this.studentServiceImpl.addStudent(student2);
+            response.setHttpStatus(HttpStatus.OK);
+            response.setHttpStatusCode(200);
+            response.setMessage("Update Student successfully !");
+            return ResponseEntity.of(Optional.of(response));
         }catch(Exception e){
             response.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             response.setHttpStatusCode(500);
