@@ -55,6 +55,9 @@ public class Student {
     private AdmissionForm admissionForm;
 
 
+    @OneToMany(mappedBy = "student",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<OldClass> oldClasses;
+
     @OneToOne(mappedBy = "student",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private BankDetails bankDetails;
 
