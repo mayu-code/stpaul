@@ -38,8 +38,10 @@ import com.college.stpaul.response.PaginationResponse;
 import com.college.stpaul.response.SuccessResponse;
 import com.college.stpaul.services.serviceImpl.PaymentDetailServiceImpl;
 import com.college.stpaul.services.serviceImpl.ReceiptServiceImpl;
+import com.college.stpaul.services.serviceImpl.StudentHandlerServiceImpl;
 import com.college.stpaul.services.serviceImpl.StudentServiceImpl;
 import com.college.stpaul.services.serviceImpl.UserServiceImpl;
+import com.college.stpaul.services.serviceInterface.StudentHandelerService;
 
 @RestController
 @RequestMapping("/adminuser")
@@ -62,7 +64,11 @@ public class StudentHandleController {
     private ExcelExporter excelExporter;
 
 
+    @Autowired
+    private StudentHandlerServiceImpl studentHandlerServiceImpl;
 
+
+ 
     @GetMapping("/getStudent/{pageNo}")
     public ResponseEntity<DataResponse> getStudents(@RequestHeader("Authorization")String jwt,
                                 @RequestParam(required = false) String query,
@@ -223,9 +229,9 @@ public class StudentHandleController {
             }
              excelExporter.extractStudents(file,admissionForm,user);
 
-             response.setHttpStatus(HttpStatus.OK);
-             response.setHttpStatusCode(200);
-             response.setMessage("Add all Students successfully !");
+            response.setHttpStatus(HttpStatus.OK);
+            response.setHttpStatusCode(200);
+            response.setMessage("Add all Students successfully !");
             return ResponseEntity.of(Optional.of(response));
 
         } catch (IOException e) {
@@ -252,6 +258,27 @@ public class StudentHandleController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=students.xlsx")
                 .header(HttpHeaders.CONTENT_TYPE, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
                 .body(resource);
+    }
+
+    @PostMapping("/promotStudents")
+    public ResponseEntity<SuccessResponse> pramotStudnets(@RequestBody List<Long> studentId){
+        SuccessResponse response = new SuccessResponse();
+        try{
+
+            for(Long id:studentId){
+                this.studentHandlerServiceImpl.promotStudents(id);
+            }
+            response.setHttpStatus(HttpStatus.OK);
+            response.setHttpStatusCode(200);
+            response.setMessage("promot Students successfully !");
+            return ResponseEntity.of(Optional.of(response));
+
+        }catch(Exception e){
+            response.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setHttpStatusCode(500);
+            response.setMessage(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
     }
     
 }
