@@ -157,11 +157,18 @@ public class StudentHandleController {
         }
     }
 
-    @GetMapping("getAllFailStudents")
-    public ResponseEntity<DataResponse> getAllFailStudent(){
+    @GetMapping("getAllFailStudents/{pageNo}")
+    public ResponseEntity<DataResponse> getAllFailStudent(
+                                            @RequestParam(required = false) String query,
+                                            @RequestParam(required = false) String currentClass,
+                                            @RequestParam(required = false) String session,
+                                            @RequestParam(required = false) String section,
+                                            @PathVariable("pageNo")int pageNo
+
+                                            ){
         DataResponse response = new DataResponse();
         try{
-            response.setData(this.studentServiceImpl.getAllFailedStudent());
+            response.setData(this.studentServiceImpl.getAllFailedStudent(query,currentClass,session,section,pageNo));
             response.setHttpStatus(HttpStatus.OK);
             response.setHttpStatusCode(200);
             response.setMessage("get failed Students successfully !");

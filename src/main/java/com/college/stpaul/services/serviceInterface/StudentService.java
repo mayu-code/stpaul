@@ -9,7 +9,7 @@ public interface StudentService {
     Student addStudent(Student student);
     List<Student> getStudentByField(String query,Result result,String currentClass,String session,String section,int pageNo);
     Student getStudentById(long id);
-    List<Student> getAllFailedStudent();
+    List<Student> getAllFailedStudent(String query,String currentClass,String session,String section,int pageNo);
     long paginationData();
     List<Student> exportStudent(Result result,String currentClass,String session,String section);
 }

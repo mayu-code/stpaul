@@ -2,6 +2,7 @@ package com.college.stpaul.repository;
 
 import java.util.List;
 
+import org.hibernate.annotations.Parent;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -46,8 +47,21 @@ public interface StudentRepo extends JpaRepository<Student,Long>{
             );
 
 
-    @Query("SELECT s FROM Student s WHERE s.result=:result")
-    List<Student> getFailedStudents(Result result);
+    @Query("""
+              SELECT s 
+              FROM Student s
+              WHERE s.result=:result
+              AND(:query IS NULL OR (s.firstName LIKE %:query% OR s.surname LIKE %:query% OR s.email LIKE %:query%))
+              AND (:currentClass IS NULL OR s.currentClass = :currentClass)
+              AND (:session IS NULL OR session=:session)
+              AND (:section IS NULL OR section=:section)
+        """)
+    List<Student> getFailedStudents(@Param("result")Result result,
+                                    @Param("query")String query,
+                                    @Param("currentClass")String currentClass,
+                                    @Param("session")String session,
+                                    @Param("section")String section,
+                                    Pageable pageable);
 
     @Query("SELECT COUNT(s) FROM Student s")
     long countAllStudents();

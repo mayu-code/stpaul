@@ -44,9 +44,10 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getAllFailedStudent() {
+    public List<Student> getAllFailedStudent(String query,String currentClass,String session,String section,int pageNo) {
         Result result = Result.FAIL;
-        return this.studentRepo.getFailedStudents(result);
+        Pageable pageable = PageRequest.of(pageNo, 10);
+        return this.studentRepo.getFailedStudents(result,query,currentClass,session,section,pageable);
     }
 
     @Override
